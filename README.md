@@ -1,11 +1,12 @@
-# 🎨 MaC (Memory and Color | My and Color)
+#  MaC  
+> ## [ *Memory and Color | My and Color* ]
 
-> **"당신의 추억을 한 줄로 적어주세요. 당신의 기억을, 색으로 돌려드립니다."** > 사용자의 추억 문장과 생년월일을 바탕으로 감정 및 사주 오행을 분석하여, 나만의 시그니처 퍼스널 HEX 컬러 팔레트(70:25:5 비율)와 감성 리포트를 제공하는 AI 웹 서비스입니다.
+> *당신의 추억을 한 줄로 적어주세요.* 
 
 ---
 
-## 🚀 1. 서비스 소개 및 기획
-- **서비스명**: MaC (`Memory & Color` / `My Color`)
+## 🎨1. 서비스 소개 및 기획
+- **서비스명**: MaC  
 - **타겟 사용자**:
 - **핵심 기능**:
   1. **Memory & Color 모드**:
@@ -17,7 +18,7 @@
 ## 🛠️ 2. 기술 스택 (Tech Stack)
 - **Frontend**: 순수 HTML5, CSS3 (Glassmorphism UI), Vanilla JavaScript (SPA 형태 네비게이션 및 비동기 Fetch 통신)
 - **Backend**: Vercel Serverless Functions (Python)
-- **AI Model**:
+- **AI Model**: 
 - **Deployment**: Vercel
 
 ---
