@@ -1,0 +1,18 @@
+# 1. API 키 및 환경 변수 파일 (가장 중요!)
+.env
+*.env
+
+# 2. Vercel 서버리스 배포 관련 임시 폴더
+.vercel/
+
+# 3. 파이썬 백엔드(api/) 실행 시 생기는 캐시 파일
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.venv/
+venv/
+
+# 4. 운영체제(Mac/Windows)가 자동 생성하는 잡동사니 파일
+.DS_Store
+Thumbs.db
