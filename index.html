@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MaC - Memory and Color</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Segoe UI", Roboto, sans-serif;
+      background-color: #edebe8;
+      color: #2b2b2b;
+      line-height: 1.6;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    .archive-section {
+      width: 100%;
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 20px;
+      padding: 40px 30px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #6c5ce7;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1a1a1a;
+      letter-spacing: -0.02em;
+    }
+
+    .gallery-viewport {
+      width: 100%;
+      overflow-x: auto;
+      border-radius: 12px;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 10px;
+    }
+
+    .gallery-viewport::-webkit-scrollbar {
+      height: 6px;
+    }
+    .gallery-viewport::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: 10px;
+    }
+
+    .gallery-image {
+      display: block;
+      width: 100%;
+      min-width: 760px;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .glass-card {
+        padding: 24px 16px;
+      }
+      .section-title {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Section 4: Memory Archive -->
+  <section class="archive-section" id="archive">
+    <div class="glass-card">
+      <div class="section-header">
+        <span class="section-tag">Section 04</span>
+        <h2 class="section-title">Memory Archive</h2>
+      </div>
+
+      <!-- 반응형 캔버스 이미지 뷰어 -->
+      <div class="gallery-viewport">
+        <img class="gallery-image" src="images/gallery.png" alt="Memory Archive 갤러리">
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
