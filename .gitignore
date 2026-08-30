@@ -16,3 +16,7 @@ venv/
 # 4. 운영체제(Mac/Windows)가 자동 생성하는 잡동사니 파일
 .DS_Store
 Thumbs.db
+README.md
+test.html
+
+
