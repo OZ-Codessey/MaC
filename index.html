@@ -5,15 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MaC - Memory and Color | Color Concierge</title>
 
-  <!-- ==========================================================================
-       [CSS STYLESHEET COMMIT HISTORY]
-       - COMMIT 01: 전역 리셋, 시스템 폰트 스택 및 내추럴 웜 스톤 베이지(#eae7e2)
-       - COMMIT 02: 글래스모피즘 공통 컨테이너, 골드 그레이 타이틀 & 여유로운 상하 여백
-       - COMMIT 03: 아스라한 플로팅 캔버스 갭 프레임 & 하단 텍스트/컬러칩 왼쪽 정렬 원복
-       - COMMIT 04: feat: build private contact form with responsive 2-way inquiry options
-       - COMMIT 05: chore: update .gitignore
-       - COMMIT 06: feat(ux): implement multi-sensory micro-interactions with Web Audio API, dynamic lighting, and modal zoom viewer
-       ========================================================================== -->
   <style>
     /* --------------------------------------------------------------------------
        [전역 리셋 및 오리지널 웜 스톤 베이스]
@@ -466,13 +457,14 @@
     }
 
     /* --------------------------------------------------------------------------
-       [입력 폼 필드 스타일]
+       [입력 폼 & 버튼 근처 알림 바 / 툴팁 스타일]
        -------------------------------------------------------------------------- */
     .concierge-form {
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 22px;
       padding-top: 4px;
+      position: relative;
     }
 
     .field-wrap {
@@ -523,6 +515,55 @@
       box-shadow: inset 0 2px 4px rgba(43, 39, 37, 0.03), 0 4px 12px rgba(43, 39, 37, 0.05);
     }
 
+    .field-invalid {
+      border-bottom-color: #c45b38 !important;
+      background: rgba(255, 245, 240, 0.85) !important;
+    }
+
+    /* 입력창 하단 말풍선 꼭지 툴팁 */
+    .field-tooltip-bubble {
+      position: absolute;
+      top: calc(100% + 7px);
+      left: 6px;
+      z-index: 100;
+      background: #fdfaf7;
+      color: #8c3b20;
+      border: 1px solid rgba(196, 91, 56, 0.35);
+      box-shadow: 0 6px 16px rgba(184, 93, 56, 0.12), 0 2px 5px rgba(0, 0, 0, 0.04);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      display: none;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      animation: tooltipSlide 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .field-tooltip-bubble::before {
+      content: "";
+      position: absolute;
+      top: -5px;
+      left: 14px;
+      width: 8px;
+      height: 8px;
+      background: #fdfaf7;
+      border-left: 1px solid rgba(196, 91, 56, 0.35);
+      border-top: 1px solid rgba(196, 91, 56, 0.35);
+      transform: rotate(45deg);
+    }
+
+    .field-tooltip-bubble.is-visible {
+      display: inline-flex;
+    }
+
+    @keyframes tooltipSlide {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .field-select {
       font-size: 14.5px;
       font-weight: 450;
@@ -557,9 +598,65 @@
       line-height: 1.65;
     }
 
+    /* --------------------------------------------------------------------------
+       [SUBMIT 버튼 상단 앵커 전송 안내 바 (시스템 Alert 완전 대체)]
+       -------------------------------------------------------------------------- */
+    .submit-anchor-wrap {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-top: 4px;
+      gap: 10px;
+    }
+
+    .btn-notify-bar {
+      width: 100%;
+      background: rgba(253, 251, 248, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(140, 130, 122, 0.25);
+      border-radius: 8px;
+      padding: 10px 16px;
+      box-shadow: 0 4px 14px rgba(43, 39, 37, 0.05);
+      display: none;
+      align-items: center;
+      transition: all 0.3s ease;
+      animation: notifySlideUp 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .btn-notify-bar.is-active {
+      display: flex;
+    }
+
+    /* 연결 진행 중 상태 (골드 웜 그레이) */
+    .btn-notify-bar.status-connecting {
+      border-left: 3.5px solid #938573;
+      background: rgba(253, 251, 248, 0.95);
+    }
+
+    /* 전송 실패 상태 (소프트 테라코타) */
+    .btn-notify-bar.status-failed {
+      border-left: 3.5px solid #c45b38;
+      background: rgba(255, 246, 243, 0.97);
+    }
+
+    .btn-notify-text {
+      font-size: 12.5px;
+      font-weight: 550;
+      color: #383330;
+      letter-spacing: -0.01em;
+      line-height: 1.45;
+      white-space: pre-line;
+    }
+
+    @keyframes notifySlideUp {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .request-btn {
       align-self: flex-start;
-      margin-top: 8px;
       padding: 14px 42px;
       background: #3a3430;
       color: #f7f6f4;
@@ -579,6 +676,12 @@
       background: #4d453f;
       transform: translateY(-2px);
       box-shadow: 0 6px 18px rgba(58, 52, 48, 0.2);
+    }
+
+    .request-btn:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+      transform: none !important;
     }
 
     @media (max-width: 1024px) {
@@ -624,7 +727,6 @@
 </head>
 <body>
 
-  <!-- 섹션 1: CURATED EXHIBITION / MEMORY ARCHIVE -->
   <section class="archive-section" id="archive">
     <div class="glass-card">
       
@@ -826,7 +928,6 @@
     </div>
   </section>
 
-  <!-- 모달 팝업 -->
   <aside id="memoryModal" class="memory-modal-overlay" aria-hidden="true">
     <div class="memory-modal-window">
       <div class="gallery-hanger-btn" id="modalHangerBtn" title="갤러리로 돌아가기">
@@ -860,7 +961,6 @@
     </div>
   </aside>
 
-  <!-- 섹션 2: COLOR CONCIERGE & CONTACT -->
   <section class="concierge-section" id="concierge">
     <div class="glass-card">
 
@@ -889,15 +989,17 @@
           </div>
         </div>
 
-        <form class="concierge-form" id="conciergeForm">
+        <form class="concierge-form" id="conciergeForm" novalidate>
           <div class="field-wrap">
             <label class="field-label" for="clientName">CLIENT NAME</label>
             <input type="text" id="clientName" class="field-input" placeholder="성함 또는 칭호를 남겨주세요" required>
+            <div class="field-tooltip-bubble" id="nameTooltip">이 항목을 입력해 주세요.</div>
           </div>
 
           <div class="field-wrap">
             <label class="field-label" for="clientContact">CONTACT INFO</label>
             <input type="text" id="clientContact" class="field-input" placeholder="회신받으실 이메일 또는 연락처" required>
+            <div class="field-tooltip-bubble" id="contactTooltip">이 항목을 입력해 주세요.</div>
           </div>
 
           <div class="field-wrap">
@@ -919,24 +1021,31 @@
                       data-short="Private Viewing - 살롱 프라이빗 뷰잉" 
                       data-full="Private Salon Viewing - 프라이빗 뷰잉 세션 예약">Private Salon Viewing - 프라이빗 뷰잉 세션 예약</option>
             </select>
+            <div class="field-tooltip-bubble" id="subjectTooltip">목록에서 항목을 선택해 주세요.</div>
           </div>
 
           <div class="field-wrap">
             <label class="field-label" for="clientMessage">PRIVATE NOTE</label>
             <textarea id="clientMessage" class="field-textarea" placeholder="문의를 남겨주세요." required></textarea>
+            <div class="field-tooltip-bubble" id="messageTooltip">이 항목을 입력해 주세요.</div>
           </div>
 
-          <button type="submit" class="request-btn" id="submitBtn">SUBMIT PRIVATE REQUEST</button>
+          <div class="submit-anchor-wrap">
+            <aside id="btnNotifyBar" class="btn-notify-bar" role="status" aria-live="polite">
+              <span class="btn-notify-text" id="btnNotifyText"></span>
+            </aside>
+            <button type="submit" class="request-btn" id="submitBtn">SUBMIT PRIVATE REQUEST</button>
+          </div>
         </form>
       </div>
 
     </div>
   </section>
 
-  <!-- JAVASCRIPT ENGINE (COMMIT 06: 사운드 & 모달 확대 뷰어) -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
 
+      // 갤러리 10종 작품 데이터 및 감성 스토리텔링 내러티브
       const memoryStories = [
         {
           title: "초여름 수국 골목",
@@ -1011,7 +1120,7 @@
       ];
 
       /* ------------------------------------------------------------------------
-         [Web Audio API 사운드 엔진]
+         [Web Audio API Engine: 크로스 브라우징 및 제스처 락 해제 지원]
          ------------------------------------------------------------------------ */
       let audioCtx = null;
       function getAudioContext() {
@@ -1029,6 +1138,7 @@
         }
       }
 
+      // 호버 마이크로 챠임
       function playRecallChimeHover() {
         try {
           const ctx = getAudioContext();
@@ -1053,6 +1163,7 @@
         } catch (e) {}
       }
 
+      // 카드 클릭 오르골 아르페지오 (5음계 회상 테마)
       function playMemoryRecallClick() {
         try {
           const ctx = getAudioContext();
@@ -1082,8 +1193,37 @@
         } catch (e) {}
       }
 
+      // 상태 변경 및 경고 피드백용 청명 차임벨 (G5 -> C6 -> E6)
+      function playWarningChime() {
+        try {
+          const ctx = getAudioContext();
+          if (!ctx) return;
+          const now = ctx.currentTime;
+
+          const notes = [783.99, 1046.50, 1318.51];
+          const delays = [0.0, 0.045, 0.09];
+
+          notes.forEach((freq, idx) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(freq, now + delays[idx]);
+
+            gain.gain.setValueAtTime(0.09, now + delays[idx]);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + delays[idx] + 0.22);
+
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            osc.start(now + delays[idx]);
+            osc.stop(now + delays[idx] + 0.23);
+          });
+        } catch (e) {}
+      }
+
       /* ------------------------------------------------------------------------
-         [카드 클릭 모달 바인딩 & 닫기 인터랙션]
+         [카드 클릭 모달 바인딩 & 인터랙션 닫기]
          ------------------------------------------------------------------------ */
       const cards = document.querySelectorAll('.gallery-card');
       const modal = document.getElementById('memoryModal');
@@ -1147,7 +1287,7 @@
       });
 
       /* ------------------------------------------------------------------------
-         [반응형 옵션 텍스트 최적화]
+         [반응형 셀렉트 옵션 텍스트 최적화]
          ------------------------------------------------------------------------ */
       const selectElem = document.getElementById('inquirySubject');
       const updateOptionsByDevice = () => {
@@ -1161,6 +1301,148 @@
       };
       updateOptionsByDevice();
       window.addEventListener('resize', updateOptionsByDevice);
+
+      /* ========================================================================
+         [컨시어지 폼: UX 고도화 및 5초 비동기 전송 실패 시뮬레이션 엔진]
+         - 1. 브라우저 기본 alert() 완전 제거 -> 버튼 상단 슬림 알림 바 연동
+         - 2. 미입력 시 필드 직속 말풍선 꼭지 툴팁 노출
+         - 3. 미동기화 메일 계정(concierge@MaC.art) 환경을 반영한 비동기 지연 처리:
+              - SUBMIT 클릭 시: 1단계 '연결 중...' 메시지 노출 (충분한 인지 시간 제공)
+              - 5초(5000ms) 경과 후: 2단계 '전송 실패' 메시지 전환 및 사운드 피드백
+         - 4. 3회 누적 실패 방어 로직으로 무한 루프 완벽 차단
+         ======================================================================== */
+      const conciergeForm = document.getElementById('conciergeForm');
+      const submitBtn = document.getElementById('submitBtn');
+      const btnNotifyBar = document.getElementById('btnNotifyBar');
+      const btnNotifyText = document.getElementById('btnNotifyText');
+
+      let mailAttemptCount = 0;   // 전송 시도 횟수 누적 추적
+      let tooltipTimer = null;       // 툴팁 자동 소멸 타이머
+      let asyncFailTimer = null;     // 5초 지연 실패 시뮬레이션 타이머
+
+      // 알림 및 툴팁 초기화 헬퍼 함수
+      function resetFormUIFeedback() {
+        document.querySelectorAll('.field-tooltip-bubble').forEach(t => t.classList.remove('is-visible'));
+        document.querySelectorAll('.field-input, .field-select, .field-textarea').forEach(i => i.classList.remove('field-invalid'));
+      }
+
+      // [버튼 상단 슬림 알림 바 렌더링 함수]
+      function showButtonNotification(message, status = 'connecting') {
+        if (!btnNotifyBar || !btnNotifyText) return;
+
+        btnNotifyBar.className = 'btn-notify-bar is-active';
+        if (status === 'failed') {
+          btnNotifyBar.classList.add('status-failed');
+        } else {
+          btnNotifyBar.classList.add('status-connecting');
+        }
+
+        btnNotifyText.textContent = message;
+      }
+
+      if (conciergeForm) {
+        // 사용자 입력 시 유효성 경고 툴팁 즉시 해제
+        const formInputs = conciergeForm.querySelectorAll('.field-input, .field-select, .field-textarea');
+        formInputs.forEach(input => {
+          input.addEventListener('input', resetFormUIFeedback);
+          input.addEventListener('change', resetFormUIFeedback);
+        });
+
+        conciergeForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          resetFormUIFeedback();
+
+          // [방어 로직 1] 이미 비동기 전송 시뮬레이션이 진행 중인 경우 중복 제출 차단
+          if (submitBtn && submitBtn.disabled) return;
+
+          // [방어 로직 2] 3회 누적 실패 시 전송 시도를 차단하고 안내 후 리셋 (무한 루프 방지)
+          if (mailAttemptCount >= 3) {
+            playWarningChime();
+            showButtonNotification('메일 전송이 실패했습니다. 잠시 후 다시 시도해 주시기 바랍니다.', 'failed');
+            mailAttemptCount = 0; // 카운터 리셋
+            return;
+          }
+
+          const nameElem = document.getElementById('clientName');
+          const contactElem = document.getElementById('clientContact');
+          const subjectElem = document.getElementById('inquirySubject');
+          const messageElem = document.getElementById('clientMessage');
+
+          const name = nameElem ? nameElem.value.trim() : '';
+          const contact = contactElem ? contactElem.value.trim() : '';
+          const subjectVal = subjectElem ? subjectElem.value : '';
+          const message = messageElem ? messageElem.value.trim() : '';
+
+          let firstEmptyField = null;
+          let targetTooltip = null;
+
+          // 상단 필드부터 순차 검증
+          if (!name && nameElem) {
+            firstEmptyField = nameElem;
+            targetTooltip = document.getElementById('nameTooltip');
+          } else if (!contact && contactElem) {
+            firstEmptyField = contactElem;
+            targetTooltip = document.getElementById('contactTooltip');
+          } else if (!subjectVal && subjectElem) {
+            firstEmptyField = subjectElem;
+            targetTooltip = document.getElementById('subjectTooltip');
+          } else if (!message && messageElem) {
+            firstEmptyField = messageElem;
+            targetTooltip = document.getElementById('messageTooltip');
+          }
+
+          // [미입력 처리] 해당 필드 직속 말풍선 꼭지 툴팁 노출 및 청각 피드백
+          if (firstEmptyField && targetTooltip) {
+            playWarningChime();
+            firstEmptyField.classList.add('field-invalid');
+            targetTooltip.classList.add('is-visible');
+            firstEmptyField.focus();
+
+            if (btnNotifyBar) btnNotifyBar.classList.remove('is-active');
+
+            if (tooltipTimer) clearTimeout(tooltipTimer);
+            tooltipTimer = setTimeout(() => {
+              targetTooltip.classList.remove('is-visible');
+            }, 3200);
+            return;
+          }
+
+          // ====================================================================
+          // [정상 입력 검증 완료 -> 5초 비동기 전송 실패 시뮬레이션 시작]
+          // ====================================================================
+          mailAttemptCount++;
+          playWarningChime();
+
+          // 버튼 비활성화 (다중 클릭 방지)
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'CONNECTING DESK...';
+          }
+
+          // 1단계: 버튼 바로 위에 '연결 중...' 슬림 알림 바 표시 (골드 톤)
+          showButtonNotification('프라이빗 컨시어지 데스크로 연결 중입니다.\n접수된 문의를 확인한 후 신속히 회신드리겠습니다.', 'connecting');
+
+          // 2단계: 사용자가 문구를 충분히 읽을 수 있도록 정확히 5초(5000ms) 대기 후 '전송 실패' 전환
+          if (asyncFailTimer) clearTimeout(asyncFailTimer);
+          asyncFailTimer = setTimeout(() => {
+            playWarningChime();
+
+            // 미동기화 메일 계정(concierge@MaC.art) 환경에 따른 최종 실패 렌더링 (테라코타 톤)
+            showButtonNotification('메일 전송이 실패했습니다. 잠시 후 다시 시도해 주시기 바랍니다.', 'failed');
+
+            // 버튼 상태 원복
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.textContent = 'SUBMIT PRIVATE REQUEST';
+            }
+
+            // 3회 누적 실패 도달 시 카운터 리셋
+            if (mailAttemptCount >= 3) {
+              mailAttemptCount = 0;
+            }
+          }, 5000); // 5초 지연 설정
+        });
+      }
     });
   </script>
 </body>
