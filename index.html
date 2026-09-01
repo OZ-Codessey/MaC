@@ -324,6 +324,199 @@
     }
 
     /* --------------------------------------------------------------------------
+       [Reference Lightbox Modal & Easel Stage]
+       -------------------------------------------------------------------------- */
+    .arch-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(17, 17, 17, 0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .arch-modal-overlay.is-active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .arch-modal-window {
+      position: relative;
+      background: #ffffff;
+      max-width: 640px;
+      width: 100%;
+      max-height: 94vh;
+      overflow-y: auto;
+      padding: 48px 44px 42px;
+      text-align: left;
+      border-radius: 4px;
+      box-shadow: 0 40px 90px rgba(0, 0, 0, 0.35);
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      animation: modalSlideUp 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    @keyframes modalSlideUp {
+      from { transform: translateY(12px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .gallery-close-btn {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      border: none;
+      background: transparent;
+      font-family: var(--font-arch);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 6px 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.25s ease;
+      z-index: 20;
+    }
+
+    .gallery-close-btn::after {
+      content: "—";
+      font-weight: 400;
+      color: var(--text-light);
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    .gallery-close-btn:hover {
+      color: var(--text-dark);
+    }
+
+    .gallery-close-btn:hover::after {
+      color: var(--text-dark);
+      transform: translateX(3px);
+    }
+
+    .modal-badge {
+      display: inline-block;
+      align-self: flex-start;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #78716c;
+      background: #f7f5f2;
+      padding: 4px 10px;
+      border-radius: 2px;
+      border: 1px solid var(--line-subtle);
+    }
+
+    .modal-head-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .modal-main-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: -0.02em;
+    }
+
+    .modal-subtitle {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    .easel-halo-stage {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px 10px;
+      margin: 4px 0;
+      background: transparent;
+      border: none;
+    }
+
+    .easel-halo-stage::before {
+      content: "";
+      position: absolute;
+      width: 90%;
+      height: 90%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(255, 235, 215, 0.45) 0%, rgba(255, 255, 255, 0) 72%);
+      filter: blur(28px);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .easel-artwork-img {
+      position: relative;
+      z-index: 2;
+      max-width: 100%;
+      max-height: 580px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      border-radius: 4px;
+      box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.06),
+        0 16px 36px -4px rgba(28, 25, 23, 0.16),
+        0 36px 64px -8px rgba(28, 25, 23, 0.12);
+    }
+
+    .modal-narrative-box {
+      background: #faf9f7;
+      border-left: 2.5px solid var(--text-dark);
+      padding: 16px 18px;
+      font-size: 13.5px;
+      color: var(--text-body);
+      line-height: 1.75;
+    }
+
+    .modal-palette-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .palette-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      background: #faf9f7;
+      border: 1px solid var(--line-subtle);
+      border-radius: 2px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-dark);
+      font-family: ui-monospace, Menlo, monospace;
+    }
+
+    .palette-item .swatch-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* --------------------------------------------------------------------------
        [Responsive Media Queries]
        -------------------------------------------------------------------------- */
     @media (max-width: 960px) {
@@ -367,6 +560,15 @@
         width: 100%;
         text-align: center;
       }
+      .arch-modal-window {
+        padding: 36px 20px;
+      }
+      .easel-artwork-img {
+        max-height: 400px;
+      }
+      .modal-palette-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -387,7 +589,7 @@
   </header>
 
   <!-- ================= WIDE ARCHITECTURAL HERO BANNER ================= -->
-  <section class="arch-hero-banner" id="heroBanner" title="레퍼런스 원화 뷰">
+  <section class="arch-hero-banner" id="heroBanner" title="클릭하여 레퍼런스 원화 확대 감상">
     <div class="banner-img-wrap">
       <img src="images/generReference.png" alt="Architectural Color Reference" onerror="this.src='https://picsum.photos/1920/1080?grayscale'" />
     </div>
@@ -443,8 +645,47 @@
 
   </main>
 
+  <!-- ================= REFERENCE LIGHTBOX MODAL ================= -->
+  <aside id="archModal" class="arch-modal-overlay" aria-hidden="true">
+    <div class="arch-modal-window">
+      <button class="gallery-close-btn" id="modalCloseBtn" aria-label="닫기">Close</button>
+
+      <div class="modal-head-group">
+        <span class="modal-badge">Reference Mood</span>
+        <h3 class="modal-main-title">놀이공원 추억: 슈가 핑크와 웜 브라운</h3>
+        <p class="modal-subtitle">Curated Reference &amp; Palette</p>
+      </div>
+
+      <div class="easel-halo-stage">
+        <img class="easel-artwork-img" src="images/generReference.png" alt="놀이공원 추억: 슈가 핑크와 웜 브라운" onerror="this.src='https://picsum.photos/1000/1200?grayscale'" />
+      </div>
+
+      <div class="modal-narrative-box">
+        늘 바쁘던 아빠의 손을 잡고 나선 눈부신 5월의 휴일. 입안 가득 사르르 녹아내리던 달콤한 솜사탕, 회전목마의 황금빛 불빛과 왁자지껄한 음악 소리 속에서 마주 보며 웃던 <strong>따스하고 설렜던 오후.</strong>
+      </div>
+
+      <div class="modal-palette-grid">
+        <div class="palette-item">
+          <span class="swatch-dot" style="background:#FFB7C5;"></span>
+          <span>#FFB7C5 Sugar Pink</span>
+        </div>
+        <div class="palette-item">
+          <span class="swatch-dot" style="background:#87CEEB;"></span>
+          <span>#87CEEB May Sky</span>
+        </div>
+        <div class="palette-item">
+          <span class="swatch-dot" style="background:#FFD700;"></span>
+          <span>#FFD700 Carousel Gold</span>
+        </div>
+        <div class="palette-item">
+          <span class="swatch-dot" style="background:#A0522D;"></span>
+          <span>#A0522D Warm Brown</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
   <script>
-    // Web Audio API 기반 오실레이터 아르페지오 합성 사운드 함수
     function playChime() {
       try {
         const AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -469,6 +710,30 @@
       } catch (e) {}
     }
 
+    // Reference Lightbox Modal 이벤트 제어
+    const banner = document.getElementById('heroBanner');
+    const modal = document.getElementById('archModal');
+    const closeBtn = document.getElementById('modalCloseBtn');
+
+    banner.addEventListener('click', () => {
+      playChime();
+      modal.classList.add('is-active');
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.classList.remove('is-active');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.remove('is-active');
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        modal.classList.remove('is-active');
+      }
+    });
+
     // 폼 제출 이벤트 바인딩
     const form = document.getElementById('colorArchForm');
     const submitBtn = document.getElementById('submitBtn');
@@ -489,5 +754,3 @@
   </script>
 </body>
 </html>
-```eof
-
