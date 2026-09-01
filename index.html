@@ -7,7 +7,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     /* --------------------------------------------------------------------------
@@ -22,6 +22,8 @@
     :root {
       --bg-pure: #ffffff;
       --text-dark: #141211;
+      --gold-primary: #8c7042;   /* 리치 앤틱 골드 */
+      --gold-fill: #9b7e4f;      /* About Color 텍스트와 동일 명도의 풍성한 골드 채움 */
       --text-body: #383838;
       --text-muted: #6b6560;
       --text-light: #a39c94;
@@ -76,8 +78,8 @@
 
     .brand-logo span em {
       font-style: normal;
-      font-weight: 600;
-      color: var(--text-dark);
+      font-weight: 400;
+      color: inherit;
       margin: 0 1px;
     }
 
@@ -126,7 +128,7 @@
     }
 
     /* --------------------------------------------------------------------------
-       [Universal Minimal Close Button (CLOSE —)]
+       [Universal Minimal Close Button]
        -------------------------------------------------------------------------- */
     .gallery-close-btn {
       position: absolute;
@@ -166,7 +168,7 @@
     }
 
     /* --------------------------------------------------------------------------
-       [Mobile Fullscreen Minimalist Drawer (Clean Architecture Tone)]
+       [Mobile Fullscreen Minimalist Drawer]
        -------------------------------------------------------------------------- */
     .mobile-drawer {
       display: none;
@@ -225,7 +227,6 @@
       border-bottom-color: var(--text-dark);
     }
 
-    /* 힘을 뺀 모던 산세리프 타이포그래피 */
     .mobile-nav-item a {
       font-family: var(--font-arch);
       font-size: 23px;
@@ -258,7 +259,6 @@
       color: var(--text-dark);
     }
 
-    /* Astral 톤 */
     .astral-nav-item {
       border-bottom-color: rgba(26, 24, 22, 0.04);
     }
@@ -347,43 +347,49 @@
     .left-column {
       display: flex;
       flex-direction: column;
-      gap: 28px;
+      gap: 24px;
       position: sticky;
       top: 110px;
     }
 
+    /* About Color: 리치 골드 톤 */
     .section-main-title {
       font-size: 26px;
       font-weight: 800;
       letter-spacing: -0.01em;
       text-transform: uppercase;
       line-height: 1.2;
-      color: #2b2725;
+      color: var(--gold-primary);
     }
 
     .social-links {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       align-items: center;
     }
 
+    /* 소셜 버튼: About Color 텍스트 명도와 일치시킨 골드 채움 */
     .social-btn {
       width: 30px;
       height: 30px;
       border-radius: 50%;
-      background: #2b2725;
-      color: #fff;
+      background: var(--gold-fill);
+      color: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 11px;
       font-weight: 700;
+      letter-spacing: -0.02em;
       text-decoration: none;
-      transition: opacity 0.2s ease;
+      box-shadow: 0 2px 6px rgba(140, 112, 66, 0.22);
+      transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
     .social-btn:hover {
-      opacity: 0.7;
+      background: #846838;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 12px rgba(140, 112, 66, 0.35);
     }
 
     .right-column {
@@ -412,7 +418,7 @@
     .statement-divider {
       width: 36px;
       height: 1.5px;
-      background: var(--text-dark);
+      background: var(--gold-primary);
       margin: 4px 0 2px 0;
     }
 
@@ -461,14 +467,17 @@
     .form-row input {
       width: 100%;
       border: none;
-      border-bottom: 1px solid var(--line-subtle);
       background: transparent;
       padding: 12px 0;
       font-size: 15.5px;
       font-weight: 400;
       color: var(--text-dark);
       outline: none;
-      transition: border-color 0.25s ease;
+      box-shadow: 
+        0 1px 0 rgba(0, 0, 0, 0.12),
+        0 2px 3px -1px rgba(0, 0, 0, 0.08),
+        0 3px 0 #ffffff;
+      transition: box-shadow 0.25s ease;
     }
 
     .form-row input::placeholder {
@@ -477,35 +486,52 @@
     }
 
     .form-row input:focus {
-      border-bottom-color: var(--text-dark);
+      box-shadow: 
+        0 1.5px 0 var(--gold-primary),
+        0 3px 6px -1px rgba(140, 112, 66, 0.25);
     }
 
     .submit-wrap {
       display: flex;
       align-items: center;
       gap: 24px;
-      margin-top: 12px;
+      margin-top: 14px;
       flex-wrap: wrap;
     }
 
     .submit-arch-btn {
-      padding: 15px 36px;
+      padding: 16px 38px;
       background: var(--text-dark);
       color: #ffffff;
-      border: none;
-      border-radius: 2px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 3px;
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       cursor: pointer;
-      transition: background 0.2s ease, transform 0.2s ease;
       white-space: nowrap;
+      box-shadow: 
+        0 6px 18px rgba(20, 18, 17, 0.25),
+        0 2px 4px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      transition: all 0.25s ease;
     }
 
     .submit-arch-btn:hover {
-      background: #333333;
-      transform: translateY(-1px);
+      background: #231f1d;
+      transform: translateY(-1.5px);
+      box-shadow: 
+        0 10px 24px rgba(20, 18, 17, 0.32),
+        0 3px 6px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .submit-arch-btn:active {
+      transform: translateY(1px);
+      box-shadow: 
+        0 3px 8px rgba(20, 18, 17, 0.2),
+        inset 0 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     .form-guide-txt {
@@ -689,17 +715,17 @@
     .astral-field input {
       width: 100%;
       border: none;
-      border-bottom: 1.5px solid var(--line-subtle);
       background: transparent;
       padding: 10px 0;
       font-size: 15px;
       color: var(--text-dark);
       outline: none;
-      transition: border-color 0.25s ease;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.12);
+      transition: box-shadow 0.25s ease;
     }
 
     .astral-field input:focus {
-      border-bottom-color: var(--text-dark);
+      box-shadow: 0 1.5px 0 var(--gold-primary);
     }
 
     .astral-disabled-btn {
@@ -813,7 +839,6 @@
       <button class="gallery-close-btn" id="mobileDrawerCloseBtn" aria-label="메뉴 닫기">Close</button>
     </div>
 
-    <!-- 중앙 배치 + 모던 산세리프 & 헤어라인 링크선 -->
     <div class="drawer-center-stage">
       <ul class="mobile-nav-list">
         <li class="mobile-nav-item">
@@ -859,7 +884,7 @@
   <!-- ================= 2-COLUMN SECTION 1 ================= -->
   <main class="content-container">
     
-    <!-- Left Column (Dark Charcoal Tone) -->
+    <!-- Left Column (Harmonized Rich Gold Fill) -->
     <div class="left-column">
       <h1 class="section-main-title">About Color</h1>
       <div class="social-links">
@@ -883,7 +908,6 @@
         </p>
       </article>
 
-      <!-- Minimal Form Section -->
       <form class="arch-form-wrapper" id="colorArchForm">
         <div class="form-row">
           <label for="userMemory">Your Memory Statement</label>
