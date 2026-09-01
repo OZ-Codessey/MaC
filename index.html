@@ -7,7 +7,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     /* --------------------------------------------------------------------------
@@ -21,7 +21,7 @@
 
     :root {
       --bg-pure: #ffffff;
-      --text-dark: #1a1816;
+      --text-dark: #141211;
       --text-body: #383838;
       --text-muted: #6b6560;
       --text-light: #a39c94;
@@ -81,6 +81,7 @@
       margin: 0 1px;
     }
 
+    /* Desktop Navigation */
     .nav-menu {
       display: flex;
       gap: 36px;
@@ -99,6 +100,185 @@
 
     .nav-item a:hover {
       color: var(--text-muted);
+    }
+
+    /* Mobile Hamburger Trigger */
+    .mobile-menu-btn {
+      display: none;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      width: 36px;
+      height: 36px;
+      padding: 6px;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      z-index: 150;
+    }
+
+    .mobile-menu-btn span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background-color: var(--text-dark);
+      transition: all 0.3s ease;
+    }
+
+    /* --------------------------------------------------------------------------
+       [Universal Minimal Close Button (CLOSE —)]
+       -------------------------------------------------------------------------- */
+    .gallery-close-btn {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      border: none;
+      background: transparent;
+      font-family: var(--font-arch);
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 6px 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.25s ease;
+      z-index: 20;
+    }
+
+    .gallery-close-btn::after {
+      content: "—";
+      font-weight: 400;
+      color: var(--text-light);
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    .gallery-close-btn:hover {
+      color: var(--text-dark);
+    }
+
+    .gallery-close-btn:hover::after {
+      color: var(--text-dark);
+      transform: translateX(3px);
+    }
+
+    /* --------------------------------------------------------------------------
+       [Mobile Fullscreen Minimalist Drawer (Clean Architecture Tone)]
+       -------------------------------------------------------------------------- */
+    .mobile-drawer {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #ffffff;
+      z-index: 200;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px 36px 44px 36px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .mobile-drawer.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .drawer-top-bar {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      position: relative;
+      height: 48px;
+    }
+
+    .drawer-center-stage {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      margin: auto 0;
+      transform: translateY(-4vh);
+    }
+
+    .mobile-nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .mobile-nav-item {
+      width: 100%;
+      border-bottom: 1px solid rgba(26, 24, 22, 0.08);
+      padding-bottom: 12px;
+      transition: border-color 0.25s ease;
+    }
+
+    .mobile-nav-item:active {
+      border-bottom-color: var(--text-dark);
+    }
+
+    /* 힘을 뺀 모던 산세리프 타이포그래피 */
+    .mobile-nav-item a {
+      font-family: var(--font-arch);
+      font-size: 23px;
+      font-weight: 350;
+      letter-spacing: -0.01em;
+      color: #383431;
+      text-decoration: none;
+      line-height: 1.25;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .mobile-nav-item a .brand-prefix {
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-right: 1px;
+    }
+
+    .mobile-nav-item a .nav-arrow {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-light);
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    .mobile-nav-item:active .nav-arrow {
+      transform: translate(2px, -2px);
+      color: var(--text-dark);
+    }
+
+    /* Astral 톤 */
+    .astral-nav-item {
+      border-bottom-color: rgba(26, 24, 22, 0.04);
+    }
+
+    .astral-nav-item a {
+      color: #9e968f !important;
+    }
+
+    .astral-nav-item a .brand-prefix {
+      color: #7d756e !important;
+      font-weight: 600;
+    }
+
+    .drawer-footer {
+      font-size: 11px;
+      font-family: var(--font-arch);
+      color: var(--text-light);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-align: center;
     }
 
     /* --------------------------------------------------------------------------
@@ -245,6 +425,18 @@
       max-width: 100%;
     }
 
+    .br-desktop {
+      display: inline;
+    }
+
+    @media (min-width: 961px) {
+      .br-desktop {
+        display: block;
+        content: "";
+        margin-top: 2px;
+      }
+    }
+
     .arch-form-wrapper {
       margin-top: 10px;
       padding-top: 36px;
@@ -366,43 +558,6 @@
     @keyframes modalSlideUp {
       from { transform: translateY(12px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
-    }
-
-    .gallery-close-btn {
-      position: absolute;
-      top: 24px;
-      right: 28px;
-      border: none;
-      background: transparent;
-      font-family: var(--font-arch);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      cursor: pointer;
-      padding: 6px 4px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.25s ease;
-      z-index: 20;
-    }
-
-    .gallery-close-btn::after {
-      content: "—";
-      font-weight: 400;
-      color: var(--text-light);
-      transition: transform 0.2s ease, color 0.2s ease;
-    }
-
-    .gallery-close-btn:hover {
-      color: var(--text-dark);
-    }
-
-    .gallery-close-btn:hover::after {
-      color: var(--text-dark);
-      transform: translateX(3px);
     }
 
     .modal-badge {
@@ -597,6 +752,17 @@
         bottom: 14px;
         font-size: 10.5px;
       }
+      
+      .nav-menu {
+        display: none;
+      }
+      .mobile-menu-btn {
+        display: flex;
+      }
+      .mobile-drawer {
+        display: flex;
+      }
+
       .submit-wrap {
         flex-direction: column;
         align-items: flex-start;
@@ -620,19 +786,69 @@
 </head>
 <body>
 
+  <!-- ================= TOP HEADER NAVIGATION ================= -->
   <header class="arch-header">
     <a href="#" class="brand-logo">
       MaC <span>/ Memory <em>&amp;</em> Color</span>
     </a>
 
+    <!-- Desktop Navigation -->
     <ul class="nav-menu">
       <li class="nav-item"><a href="#">Memory</a></li>
       <li class="nav-item"><a href="#archive">archive</a></li>
       <li class="nav-item"><a href="#concierge">Concierge</a></li>
       <li class="nav-item"><a id="navAstral">Astral</a></li>
     </ul>
+
+    <!-- Mobile Hamburger Toggle Button -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+      <span></span>
+      <span></span>
+    </button>
   </header>
 
+  <!-- ================= MOBILE FULLSCREEN DRAWER ================= -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-top-bar">
+      <button class="gallery-close-btn" id="mobileDrawerCloseBtn" aria-label="메뉴 닫기">Close</button>
+    </div>
+
+    <!-- 중앙 배치 + 모던 산세리프 & 헤어라인 링크선 -->
+    <div class="drawer-center-stage">
+      <ul class="mobile-nav-list">
+        <li class="mobile-nav-item">
+          <a class="mobile-nav-link" href="#">
+            <span><span class="brand-prefix">M</span>emory</span>
+            <span class="nav-arrow">↗</span>
+          </a>
+        </li>
+        <li class="mobile-nav-item">
+          <a class="mobile-nav-link" href="#archive">
+            <span><span class="brand-prefix">a</span>rchive</span>
+            <span class="nav-arrow">↗</span>
+          </a>
+        </li>
+        <li class="mobile-nav-item">
+          <a class="mobile-nav-link" href="#concierge">
+            <span><span class="brand-prefix">C</span>oncierge</span>
+            <span class="nav-arrow">↗</span>
+          </a>
+        </li>
+        <li class="mobile-nav-item astral-nav-item">
+          <a class="mobile-nav-link" id="mobileNavAstral">
+            <span><span class="brand-prefix">A</span>stral</span>
+            <span class="nav-arrow">—</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="drawer-footer">
+      Architecture of Memory &amp; Color
+    </div>
+  </div>
+
+  <!-- ================= WIDE ARCHITECTURAL HERO BANNER ================= -->
   <section class="arch-hero-banner" id="heroBanner" title="클릭하여 레퍼런스 원화 확대 감상">
     <div class="banner-img-wrap">
       <img src="images/generReference.png" alt="Architectural Color Reference" onerror="this.src='https://picsum.photos/1920/1080?grayscale'" />
@@ -640,8 +856,10 @@
     <div class="banner-overlay-caption">Reference No. 01 / View Artwork ↗</div>
   </section>
 
+  <!-- ================= 2-COLUMN SECTION 1 ================= -->
   <main class="content-container">
     
+    <!-- Left Column (Dark Charcoal Tone) -->
     <div class="left-column">
       <h1 class="section-main-title">About Color</h1>
       <div class="social-links">
@@ -651,6 +869,7 @@
       </div>
     </div>
 
+    <!-- Right Column -->
     <div class="right-column">
       
       <article class="statement-block">
@@ -660,10 +879,11 @@
         </h2>
         <div class="statement-divider"></div>
         <p class="statement-body">
-          기억 속 장면과 정서를 한 줄의 문장과 색채 언어로 시각화합니다. 공간과 순간에 머물던 기억의 파편은 색면 추상으로 재구성되어 형태 너머 내면 깊은 곳의 여운을 관조합니다.
+          기억 속 장면과 정서를 한 줄의 문장과 색채 언어로 시각화합니다. 공간과 순간에 머물던 기억의 파편은 색면 추상으로 재구성되어 <span class="br-desktop"></span>형태 너머 내면 깊은 곳의 여운을 관조합니다.
         </p>
       </article>
 
+      <!-- Minimal Form Section -->
       <form class="arch-form-wrapper" id="colorArchForm">
         <div class="form-row">
           <label for="userMemory">Your Memory Statement</label>
@@ -685,6 +905,7 @@
 
   </main>
 
+  <!-- ================= REFERENCE LIGHTBOX MODAL ================= -->
   <aside id="archModal" class="arch-modal-overlay" aria-hidden="true">
     <div class="arch-modal-window">
       <button class="gallery-close-btn" id="modalCloseBtn" aria-label="닫기">Close</button>
@@ -724,6 +945,7 @@
     </div>
   </aside>
 
+  <!-- ================= ASTRAL MODAL ================= -->
   <aside id="astralModal" class="arch-modal-overlay" aria-hidden="true">
     <div class="arch-modal-window" style="max-width: 500px;">
       <button class="gallery-close-btn" id="astralCloseBtn" aria-label="닫기">Close</button>
@@ -772,7 +994,7 @@
       } catch (e) {}
     }
 
-    // Reference Lightbox Modal 제어
+    // Reference Lightbox Modal
     const banner = document.getElementById('heroBanner');
     const modal = document.getElementById('archModal');
     const closeBtn = document.getElementById('modalCloseBtn');
@@ -790,17 +1012,46 @@
       if (e.target === modal) modal.classList.remove('is-active');
     });
 
-    // Astral Modal 제어
+    // Mobile Drawer Controls
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    const mobileDrawerCloseBtn = document.getElementById('mobileDrawerCloseBtn');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+    function openMobileDrawer() {
+      playChime();
+      mobileDrawer.classList.add('is-open');
+    }
+
+    function closeMobileDrawer() {
+      mobileDrawer.classList.remove('is-open');
+    }
+
+    mobileMenuBtn.addEventListener('click', openMobileDrawer);
+    mobileDrawerCloseBtn.addEventListener('click', closeMobileDrawer);
+
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (link.id !== 'mobileNavAstral') {
+          closeMobileDrawer();
+        }
+      });
+    });
+
+    // Astral Modal (Desktop & Mobile)
     const navAstral = document.getElementById('navAstral');
+    const mobileNavAstral = document.getElementById('mobileNavAstral');
     const astralModal = document.getElementById('astralModal');
     const astralCloseBtn = document.getElementById('astralCloseBtn');
 
     function openAstralModal() {
       playChime();
+      closeMobileDrawer();
       astralModal.classList.add('is-active');
     }
 
     navAstral.addEventListener('click', openAstralModal);
+    mobileNavAstral.addEventListener('click', openAstralModal);
 
     astralCloseBtn.addEventListener('click', () => {
       astralModal.classList.remove('is-active');
@@ -810,15 +1061,16 @@
       if (e.target === astralModal) astralModal.classList.remove('is-active');
     });
 
-    // 전역 ESC 키 일괄 닫기
+    // ESC Key Exit
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         modal.classList.remove('is-active');
         astralModal.classList.remove('is-active');
+        closeMobileDrawer();
       }
     });
 
-    // 폼 제출 이벤트 바인딩
+    // Form Submission
     const form = document.getElementById('colorArchForm');
     const submitBtn = document.getElementById('submitBtn');
 
