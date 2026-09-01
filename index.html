@@ -324,7 +324,7 @@
     }
 
     /* --------------------------------------------------------------------------
-       [Reference Lightbox Modal & Easel Stage]
+       [Universal Minimalist Modals]
        -------------------------------------------------------------------------- */
     .arch-modal-overlay {
       display: none;
@@ -516,6 +516,52 @@
       flex-shrink: 0;
     }
 
+    /* Astral Input Field */
+    .astral-field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .astral-field label {
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .astral-field input {
+      width: 100%;
+      border: none;
+      border-bottom: 1.5px solid var(--line-subtle);
+      background: transparent;
+      padding: 10px 0;
+      font-size: 15px;
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color 0.25s ease;
+    }
+
+    .astral-field input:focus {
+      border-bottom-color: var(--text-dark);
+    }
+
+    .astral-disabled-btn {
+      width: 100%;
+      padding: 14px;
+      background: #eae7e2;
+      color: #8c827a;
+      border: none;
+      border-radius: 2px;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: not-allowed;
+      text-align: center;
+    }
+
     /* --------------------------------------------------------------------------
        [Responsive Media Queries]
        -------------------------------------------------------------------------- */
@@ -574,7 +620,6 @@
 </head>
 <body>
 
-  <!-- ================= TOP HEADER NAVIGATION ================= -->
   <header class="arch-header">
     <a href="#" class="brand-logo">
       MaC <span>/ Memory <em>&amp;</em> Color</span>
@@ -584,11 +629,10 @@
       <li class="nav-item"><a href="#">Memory</a></li>
       <li class="nav-item"><a href="#archive">archive</a></li>
       <li class="nav-item"><a href="#concierge">Concierge</a></li>
-      <li class="nav-item"><a href="#astral">Astral</a></li>
+      <li class="nav-item"><a id="navAstral">Astral</a></li>
     </ul>
   </header>
 
-  <!-- ================= WIDE ARCHITECTURAL HERO BANNER ================= -->
   <section class="arch-hero-banner" id="heroBanner" title="클릭하여 레퍼런스 원화 확대 감상">
     <div class="banner-img-wrap">
       <img src="images/generReference.png" alt="Architectural Color Reference" onerror="this.src='https://picsum.photos/1920/1080?grayscale'" />
@@ -596,10 +640,8 @@
     <div class="banner-overlay-caption">Reference No. 01 / View Artwork ↗</div>
   </section>
 
-  <!-- ================= 2-COLUMN SECTION 1 ================= -->
   <main class="content-container">
     
-    <!-- Left Column (Dark Charcoal Tone) -->
     <div class="left-column">
       <h1 class="section-main-title">About Color</h1>
       <div class="social-links">
@@ -609,7 +651,6 @@
       </div>
     </div>
 
-    <!-- Right Column -->
     <div class="right-column">
       
       <article class="statement-block">
@@ -623,7 +664,6 @@
         </p>
       </article>
 
-      <!-- Minimal Form Section -->
       <form class="arch-form-wrapper" id="colorArchForm">
         <div class="form-row">
           <label for="userMemory">Your Memory Statement</label>
@@ -645,7 +685,6 @@
 
   </main>
 
-  <!-- ================= REFERENCE LIGHTBOX MODAL ================= -->
   <aside id="archModal" class="arch-modal-overlay" aria-hidden="true">
     <div class="arch-modal-window">
       <button class="gallery-close-btn" id="modalCloseBtn" aria-label="닫기">Close</button>
@@ -685,6 +724,29 @@
     </div>
   </aside>
 
+  <aside id="astralModal" class="arch-modal-overlay" aria-hidden="true">
+    <div class="arch-modal-window" style="max-width: 500px;">
+      <button class="gallery-close-btn" id="astralCloseBtn" aria-label="닫기">Close</button>
+      
+      <div class="modal-head-group">
+        <span class="modal-badge">- 서비스 준비중 -</span>
+        <h3 class="modal-main-title">Astral Color</h3>
+        <p class="modal-subtitle">사주 / 오행 기반 고유색 · 수호색 엄선</p>
+      </div>
+
+      <div class="astral-field">
+        <label for="astralBirth">Date of Birth</label>
+        <input type="text" id="astralBirth" placeholder="생년월일을 입력해 주세요. (예: 1995.05.21)" />
+      </div>
+
+      <div class="modal-narrative-box">
+        타고난 사주 오행의 기운을 분석하여 본연의 파동을 북돋워 주는 <strong>고유색과 수호색(보호색) 큐레이션 서비스</strong>가 곧 공개됩니다.
+      </div>
+
+      <button type="button" class="astral-disabled-btn" disabled>Coming Soon</button>
+    </div>
+  </aside>
+
   <script>
     function playChime() {
       try {
@@ -710,7 +772,7 @@
       } catch (e) {}
     }
 
-    // Reference Lightbox Modal 이벤트 제어
+    // Reference Lightbox Modal 제어
     const banner = document.getElementById('heroBanner');
     const modal = document.getElementById('archModal');
     const closeBtn = document.getElementById('modalCloseBtn');
@@ -728,9 +790,31 @@
       if (e.target === modal) modal.classList.remove('is-active');
     });
 
+    // Astral Modal 제어
+    const navAstral = document.getElementById('navAstral');
+    const astralModal = document.getElementById('astralModal');
+    const astralCloseBtn = document.getElementById('astralCloseBtn');
+
+    function openAstralModal() {
+      playChime();
+      astralModal.classList.add('is-active');
+    }
+
+    navAstral.addEventListener('click', openAstralModal);
+
+    astralCloseBtn.addEventListener('click', () => {
+      astralModal.classList.remove('is-active');
+    });
+
+    astralModal.addEventListener('click', (e) => {
+      if (e.target === astralModal) astralModal.classList.remove('is-active');
+    });
+
+    // 전역 ESC 키 일괄 닫기
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         modal.classList.remove('is-active');
+        astralModal.classList.remove('is-active');
       }
     });
 
