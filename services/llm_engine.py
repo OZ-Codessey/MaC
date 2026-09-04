@@ -17,12 +17,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # [모델 호출 체인 정의]
-# 1순위: gemini-3.1-pro  — 문맥 이해도와 은유적 감성 요약 능력이 가장 뛰어남
+# 1순위: gemini-3.1-pro-preview  — 문맥 이해도와 은유적 감성 요약 능력이 가장 뛰어남
 # 2순위: gemini-3.7-flash — 차세대 고성능 플래시, 고속 처리 및 높은 논리력
 # 3순위: gemini-3.6-flash — 최신 표준 플래시 모델, 안정적인 속도 보장
 # 4순위: gemini-3.5-flash — 인프라 부하가 분산된 성숙 백업 모델
 MODEL_CHAIN = [
-    "gemini-3.1-pro",
+    "gemini-3.1-pro-preview",
     "gemini-3.7-flash",
     "gemini-3.6-flash",
     "gemini-3.5-flash"

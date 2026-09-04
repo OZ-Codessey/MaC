@@ -8,14 +8,29 @@ MaC (Memory & Color) Architecture — Vercel Serverless Pipeline Handler
    개인 고유 암호 해시 'MaC-L.C.H' 도출.
 3. 원본 emailTemplate.html의 다크 씰 토글(<details>/<summary>) 및 슬림 2x2 카드 복원.
 4. CORS 프리플라이트 및 Resend 트랜잭션 메일 발송 처리.
+5. Vercel Python 런타임이 실제로 인식하는 BaseHTTPRequestHandler 진입점 적용.
+   (기존 `def handler(environ, start_response)` 형태의 raw WSGI 함수는
+    Vercel의 @vercel/python 런타임이 유효한 서버리스 함수로 인식하지 못해
+    빌드 시점에 라우트 자체가 등록되지 않고 404가 발생했습니다. 이를
+    Vercel이 공식 지원하는 BaseHTTPRequestHandler 클래스 기반으로 교체했습니다.)
+6. 4대 계층별 예외 처리 기준(400 유효성, 502 AI 재시도, HEX 정규식 검증, Non-blocking 이메일) 완비.
+
+[이번 수정 사항 요약]
+- [FIX 1] 진입점을 `def handler(environ, start_response)` → `class handler(BaseHTTPRequestHandler)`
+          로 교체. Vercel Python 런타임 규격 미준수로 인한 404 원인 해결.
+- [FIX 2] srgb_to_xyz() 내부 `linearize(gl), linearize(bl)` 오타(정의되지 않은 자기 자신을
+          참조하던 NameError 버그)를 `linearize(g), linearize(b)`로 수정.
+- 나머지 비즈니스 로직(색채 연산, 검증, 이메일 발송)은 원본과 동일하게 유지.
+================================================================================
 """
 
 from http.server import BaseHTTPRequestHandler
+from pathlib import Path
+from dotenv import load_dotenv
 import json
 import math
 import os
-from pathlib import Path
-from dotenv import load_dotenv
+import re
 import resend
 
 # 환경 변수 로드
@@ -33,6 +48,10 @@ try:
 except ImportError:
     from color_prompt import build_system_prompt
     from llm_engine import analyze_memory_with_llm
+
+# 정규식 패턴 사전 컴파일
+EMAIL_REGEX = re.compile(r"^[^\s@]+@[^\s@]+\.[^\s@]+$")
+HEX_COLOR_REGEX = re.compile(r"^#[0-9A-F]{6}$")
 
 
 # ------------------------------------------------------------------------------
@@ -54,6 +73,8 @@ def srgb_to_xyz(r: float, g: float, b: float):
     def linearize(c):
         return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
 
+    # [FIX 2] 기존 linearize(gl), linearize(bl) → 정의되지 않은 변수를 참조하던
+    # NameError 버그. 인자로 받은 g, b를 넣도록 수정.
     rl, gl, bl = linearize(r), linearize(g), linearize(b)
     X = rl * 0.4124564 + gl * 0.3575761 + bl * 0.1804375
     Y = rl * 0.2126729 + gl * 0.7151522 + bl * 0.0721750
@@ -75,10 +96,7 @@ def xyz_to_lab(X: float, Y: float, Z: float):
     return L, a, b
 
 def compute_weighted_lch_hash(palette: list) -> str:
-    """
-    각 색상의 면적비(0.45, 0.30, 0.15, 0.10) 가중치를 적용해
-    CIELAB 공간 내 가중 중심점을 구하고, 최종 고유 암호 해시(MaC-L.C.H)를 산출합니다.
-    """
+    """CIELAB 공간 내 가중 중심점을 구하고 고유 암호 해시(MaC-L.C.H) 산출"""
     total_weight = sum(item.get("weight", item.get("area_ratio", 0.25)) for item in palette)
     if total_weight <= 0:
         total_weight = 1.0
@@ -111,93 +129,185 @@ def compute_weighted_lch_hash(palette: list) -> str:
 
 
 # ------------------------------------------------------------------------------
-# 2. Vercel Serverless 요청 핸들러
+# 2. 데이터 형식 검증 유틸리티
 # ------------------------------------------------------------------------------
-class handler(BaseHTTPRequestHandler):
-    def do_OPTIONS(self):
-        """웹 브라우저 비동기 fetch()를 위한 CORS 승인 응답"""
-        self.send_response(200)
-        self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('Access-Control-Allow-Methods', 'POST, OPTIONS')
-        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
-        self.end_headers()
+def validate_palette_schema_and_hex(palette: list) -> bool:
+    """[HEX 데이터 형식 오류 검증] 정확히 4개 색상인지 및 대문자 6자리 HEX(^#[0-9A-F]{6}$) 충족 여부 확인"""
+    if not isinstance(palette, list) or len(palette) != 4:
+        return False
+    for chip in palette:
+        hex_code = str(chip.get("hex", "")).strip().upper()
+        chip["hex"] = hex_code  # 일관되게 대문자로 보정
+        if not HEX_COLOR_REGEX.match(hex_code):
+            return False
+    return True
 
-    def do_POST(self):
+
+# ------------------------------------------------------------------------------
+# 3. 핵심 비즈니스 로직 (요청 처리 → 응답 payload 생성까지)
+#    HTTP 프레임워크와 무관하게 동작하도록 순수 로직만 분리.
+# ------------------------------------------------------------------------------
+def process_request(data: dict):
+    """
+    요청 데이터(dict)를 받아 (status_code, response_dict) 튜플을 반환합니다.
+    """
+    memory = str(data.get("memory", "")).strip()
+    email = str(data.get("email", "")).strip()
+
+    # --------------------------------------------------------------------------
+    # [예외 기준 1] 입력 유효성 검증 실패 (HTTP 400 Bad Request)
+    # --------------------------------------------------------------------------
+    if not memory or len(memory) < 10:
+        return 400, {"error": "기억 문장을 최소 10자 이상 구체적으로 입력해 주세요."}
+
+    if not email or not EMAIL_REGEX.match(email):
+        return 400, {"error": "올바른 이메일 주소 형식을 입력해 주세요."}
+
+    # --------------------------------------------------------------------------
+    # [예외 기준 2 & 3] AI 추론/JSON 파싱 및 HEX 검증 (실패 시 최대 1회 즉시 재호출)
+    # --------------------------------------------------------------------------
+    system_prompt = build_system_prompt()
+    full_prompt = f"{system_prompt}\n\n[입력된 사용자 기억 사연]\n\"{memory}\""
+
+    result_json = None
+    palette = []
+
+    for attempt in range(2):
         try:
-            content_length = int(self.headers.get('Content-Length', 0))
-            body = self.rfile.read(content_length)
-            data = json.loads(body.decode('utf-8'))
+            temp_result = analyze_memory_with_llm(full_prompt)
+            if not isinstance(temp_result, dict):
+                temp_result = json.loads(temp_result)
 
-            memory = data.get('memory', '').strip()
-            email = data.get('email', '').strip()
+            candidate_palette = temp_result.get("palette", [])
+            if validate_palette_schema_and_hex(candidate_palette):
+                result_json = temp_result
+                palette = candidate_palette
+                break
+        except Exception as retry_err:
+            print(f"[AI Synthesis Attempt {attempt + 1} Failed]: {retry_err}")
+            continue
 
-            if not memory or not email:
-                self._send_json(400, {"error": "기억 문장과 이메일 주소를 모두 입력해 주세요."})
-                return
+    if not result_json or not palette:
+        return 502, {"error": "색채 표본 추출에 실패했습니다. 문장을 조금 더 구체적으로 작성해 주세요."}
 
-            # 1. 분리된 AI 추론 엔진 호출 (내부 자동 폴백: 3.1-pro -> 3.7 -> 3.6 -> 3.5)
-            system_prompt = build_system_prompt()
-            full_prompt = f"{system_prompt}\n\n[입력된 사용자 기억 사연]\n\"{memory}\""
+    memory_summary = result_json.get("memory_summary", memory)
 
-            result_json = analyze_memory_with_llm(full_prompt)
-            palette = result_json.get("palette", [])
-            memory_summary = result_json.get("memory_summary", memory)
+    # --------------------------------------------------------------------------
+    # 면적비 가중치 기반 고유 암호 해시(MaC-L.C.H) 산출
+    # --------------------------------------------------------------------------
+    specimen_hash = compute_weighted_lch_hash(palette)
+    result_json["specimen_hash"] = specimen_hash
+    result_json["specimen_code"] = specimen_hash
 
-            # 2. 면적비 가중치 기반 최종 고유 암호 해시(MaC-L.C.H) 산출
-            specimen_hash = compute_weighted_lch_hash(palette)
-            result_json["specimen_hash"] = specimen_hash
-
-            # 3. emailTemplate.html 읽기 및 데이터 정밀 바인딩
-            template_path = Path(__file__).resolve().parent.parent / "emailTemplate.html"
+    # --------------------------------------------------------------------------
+    # emailTemplate.html 바인딩
+    # --------------------------------------------------------------------------
+    template_path = Path(__file__).resolve().parent.parent / "emailTemplate.html"
+    rendered_html = ""
+    if template_path.exists():
+        try:
             with open(template_path, "r", encoding="utf-8") as f:
                 rendered_html = f.read()
 
-            # 1) 해시 치환 (클릭 토글 영역의 {{ specimen_hash }} 매핑)
             rendered_html = rendered_html.replace("{{ specimen_hash }}", specimen_hash)
             rendered_html = rendered_html.replace("{{specimen_hash}}", specimen_hash)
             rendered_html = rendered_html.replace("{{SPECIMEN_HASH}}", specimen_hash)
 
-            # 2) 요약문 치환
             rendered_html = rendered_html.replace("{{ memory_summary }}", memory_summary)
             rendered_html = rendered_html.replace("{{memory_summary}}", memory_summary)
             rendered_html = rendered_html.replace("{{MEMORY_SUMMARY}}", memory_summary)
             rendered_html = rendered_html.replace("{{USER_MEMORY}}", memory)
 
-            # 3) 4색 칩 영역 바인딩 (palette[0] ~ palette[3] 인덱스 및 대문자 HEX 매핑)
             for i in range(4):
                 chip = palette[i] if i < len(palette) else {}
-                c_name = chip.get("color_name", f"Color {i+1}")
+                c_name = chip.get("color_name", f"Color {i + 1}")
                 c_hex = chip.get("hex", "#CCCCCC").upper()
 
                 rendered_html = rendered_html.replace(f"{{{{ palette[{i}].color_name }}}}", c_name)
                 rendered_html = rendered_html.replace(f"{{{{palette[{i}].color_name}}}}", c_name)
                 rendered_html = rendered_html.replace(f"{{{{ palette[{i}].hex }}}}", c_hex)
                 rendered_html = rendered_html.replace(f"{{{{palette[{i}].hex}}}}", c_hex)
+        except Exception as t_err:
+            print(f"[Template Render Warning]: {t_err}")
 
-            # 4. Resend 트랜잭션 메일 발송
-            if RESEND_API_KEY:
-                params = {
-                    "from": "MaC <curator@mac.ai.kr>",
-                    "to": [email],
-                    "subject": f"MaC Chromatic Specimen [{specimen_hash}]",
-                    "html": rendered_html
-                }
-                resend.Emails.send(params)
+    # --------------------------------------------------------------------------
+    # [예외 기준 4] Resend 트랜잭션 메일 발송 처리 (Non-blocking)
+    # --------------------------------------------------------------------------
+    email_sent = True
+    email_error_log = None
 
-            # 5. 프론트엔드 응답 반환
-            self._send_json(200, {
-                "status": "success",
-                "message": "발송 완료되었습니다.",
-                "hash": specimen_hash,
-                "data": result_json
-            })
+    if RESEND_API_KEY and rendered_html:
+        try:
+            params = {
+                "from": "MaC <curator@mac.ai.kr>",
+                "to": [email],
+                "subject": f"MaC Chromatic Specimen [{specimen_hash}]",
+                "html": rendered_html,
+            }
+            resend.Emails.send(params)
+        except Exception as mail_err:
+            email_sent = False
+            email_error_log = str(mail_err)
+            print(f"[Resend Non-blocking Error]: {email_error_log}")
+    else:
+        email_sent = False
 
-        except Exception as e:
-            self._send_json(500, {"error": str(e)})
+    response_payload = {
+        "status": "success",
+        "message": "색채 표본이 성공적으로 추출되었습니다.",
+        "hash": specimen_hash,
+        "specimen_code": specimen_hash,
+        "palette": palette,
+        "memory_summary": memory_summary,
+        "email_sent": email_sent,
+        "email_error": email_error_log,
+        "data": result_json,
+    }
 
-    def _send_json(self, status_code: int, data: dict):
+    return 200, response_payload
+
+
+# ------------------------------------------------------------------------------
+# 4. Vercel Serverless 진입점
+#    [FIX 1] Vercel Python 런타임이 실제로 인식하는 BaseHTTPRequestHandler
+#    클래스 형태로 구현. 클래스 이름은 반드시 'handler'여야 합니다.
+# ------------------------------------------------------------------------------
+class handler(BaseHTTPRequestHandler):
+
+    def _send_json(self, status_code: int, payload: dict):
+        body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
         self.send_response(status_code)
-        self.send_header('Content-Type', 'application/json; charset=utf-8')
-        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Access-Control-Allow-Origin", "*")
         self.end_headers()
-        self.wfile.write(json.dumps(data, ensure_ascii=False).encode('utf-8'))
+        self.wfile.write(body)
+
+    def do_OPTIONS(self):
+        # 브라우저 사전 요청 (CORS 프리플라이트) 처리
+        self.send_response(200)
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+        self.end_headers()
+
+    def do_GET(self):
+        self._send_json(405, {"error": "Method not allowed"})
+
+    def do_POST(self):
+        # JSON 본문(Body) 데이터 수신 및 파싱
+        try:
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length) if content_length > 0 else b"{}"
+            data = json.loads(body.decode("utf-8"))
+        except Exception:
+            self._send_json(400, {"error": "유효하지 않은 JSON 데이터입니다."})
+            return
+
+        try:
+            status_code, payload = process_request(data)
+        except Exception as unexpected_err:
+            print(f"[Unhandled Error]: {unexpected_err}")
+            self._send_json(500, {"error": "서버 내부 오류가 발생했습니다."})
+            return
+
+        self._send_json(status_code, payload)

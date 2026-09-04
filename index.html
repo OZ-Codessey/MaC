@@ -3,7 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MaC — Color Architecture & Memory</title>
+  
+  <!-- 주소표시줄 / 브라우저 탭 타이틀 -->
+  <title>MaC | 𝑀𝑒𝓂𝑜𝓇𝓎 𝒶𝓃𝒹 𝒞𝑜𝓁𝑜𝓇</title>
+
+  <!-- 브라우저 탭 파비콘 -->
+  <link rel="icon" type="image/png" href="images/reference.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,8 +27,11 @@
     :root {
       --bg-pure: #ffffff;
       --text-dark: #141211;
-      --gold-primary: #8c7042;   /* 리치 앤틱 골드 */
-      --gold-fill: #9b7e4f;      /* About Color 텍스트와 동일 명도의 풍성한 골드 채움 */
+      --text-soft-dark: #221f1d;
+      --gold-primary: #8c7042;
+      --gold-fill: #9b7e4f;
+      --gold-dark-charcoal: #3d3731;
+      --label-soft-gold: #7d756d;
       --text-body: #383838;
       --text-muted: #6b6560;
       --text-light: #a39c94;
@@ -83,7 +91,6 @@
       margin: 0 1px;
     }
 
-    /* Desktop Navigation */
     .nav-menu {
       display: flex;
       gap: 36px;
@@ -104,7 +111,6 @@
       color: var(--text-muted);
     }
 
-    /* Mobile Hamburger Trigger */
     .mobile-menu-btn {
       display: none;
       background: transparent;
@@ -352,7 +358,6 @@
       top: 110px;
     }
 
-    /* About Color: 리치 골드 톤 */
     .section-main-title {
       font-size: 26px;
       font-weight: 800;
@@ -368,7 +373,6 @@
       align-items: center;
     }
 
-    /* 소셜 버튼: About Color 텍스트 명도와 일치시킨 골드 채움 */
     .social-btn {
       width: 30px;
       height: 30px;
@@ -400,35 +404,73 @@
       min-width: 0;
     }
 
+    /* --------------------------------------------------------------------------
+       [Headline & Typography Refinement]
+       -------------------------------------------------------------------------- */
     .statement-block {
       display: flex;
       flex-direction: column;
-      gap: 18px;
+      gap: 22px;
       width: 100%;
     }
 
-    .statement-headline {
-      font-size: 26px;
-      font-weight: 700;
-      color: var(--text-dark);
-      letter-spacing: -0.02em;
-      line-height: 1.35;
+    .headline-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
-    .statement-divider {
-      width: 36px;
-      height: 1.5px;
+    .headline-lead-wrap {
+      display: flex;
+      align-items: flex-end;
+      gap: 5px;
+      width: 100%;
+    }
+
+    .headline-lead {
+      font-size: 16.5px;
+      font-weight: 600;
+      color: var(--gold-primary);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      line-height: 1.1;
+    }
+
+    .lead-baseline-tail {
+      display: inline-block;
+      width: 34px;
+      height: 1.4px;
       background: var(--gold-primary);
-      margin: 4px 0 2px 0;
+      opacity: 0.88;
+      border-radius: 1px;
+      margin-bottom: 2.5px;
+      transform-origin: left center;
+    }
+
+    .headline-main {
+      font-size: 36px;
+      font-weight: 600;
+      color: var(--text-soft-dark);
+      letter-spacing: -0.02em;
+      line-height: 1.3;
+    }
+
+    .headline-dots {
+      letter-spacing: 0.22em;
+      color: var(--gold-primary);
+      font-weight: 400;
+      margin: 0 5px 0 2px;
+      opacity: 0.8;
     }
 
     .statement-body {
-      font-size: 15px;
-      color: var(--text-body);
-      line-height: 1.85;
-      font-weight: 400;
+      font-size: 16.5px;
+      color: var(--gold-dark-charcoal);
+      line-height: 1.9;
+      font-weight: 450;
       width: 100%;
       max-width: 100%;
+      letter-spacing: -0.015em;
     }
 
     .br-desktop {
@@ -439,29 +481,67 @@
       .br-desktop {
         display: block;
         content: "";
-        margin-top: 2px;
+        margin-top: 3px;
       }
     }
 
+    /* --------------------------------------------------------------------------
+       [Architectural Form & Elegant Soft-Gold Labels]
+       -------------------------------------------------------------------------- */
     .arch-form-wrapper {
       margin-top: 10px;
-      padding-top: 36px;
+      padding-top: 26px;
       border-top: 1px solid var(--line-subtle);
       width: 100%;
     }
 
+    /* 인라인 감성 알림 툴팁 (기존 시스템 alert 대체) */
+    .form-inline-tooltip {
+      display: none;
+      margin-bottom: 22px;
+      padding: 13px 18px;
+      background: #faf6f0;
+      border-left: 3px solid var(--gold-primary);
+      border-radius: 2px;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: #634f2d;
+      line-height: 1.65;
+      letter-spacing: -0.01em;
+      box-shadow: 0 3px 10px rgba(140, 112, 66, 0.08);
+      animation: tooltipFadeIn 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .form-inline-tooltip.is-active {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .form-inline-tooltip .tooltip-icon {
+      color: var(--gold-primary);
+      font-size: 14px;
+      line-height: 1.6;
+      flex-shrink: 0;
+    }
+
+    @keyframes tooltipFadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .form-row {
-      margin-bottom: 32px;
+      margin-bottom: 34px;
     }
 
     .form-row label {
       display: block;
-      font-size: 12.5px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
+      font-size: 13.5px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 10px;
+      color: var(--label-soft-gold);
+      margin-bottom: 8px;
     }
 
     .form-row input {
@@ -473,10 +553,6 @@
       font-weight: 400;
       color: var(--text-dark);
       outline: none;
-      box-shadow: 
-        0 1px 0 rgba(0, 0, 0, 0.12),
-        0 2px 3px -1px rgba(0, 0, 0, 0.08),
-        0 3px 0 #ffffff;
       transition: box-shadow 0.25s ease;
     }
 
@@ -485,7 +561,27 @@
       font-size: 14.5px;
     }
 
-    .form-row input:focus {
+    .input-strong {
+      box-shadow: 
+        0 2px 0 var(--gold-primary),
+        0 3px 6px -1px rgba(140, 112, 66, 0.28),
+        0 4px 0 #ffffff;
+    }
+
+    .input-strong:focus {
+      box-shadow: 
+        0 2.5px 0 #6e552f,
+        0 4px 10px -1px rgba(110, 85, 47, 0.4);
+    }
+
+    .input-standard {
+      box-shadow: 
+        0 1px 0 rgba(0, 0, 0, 0.12),
+        0 2px 3px -1px rgba(0, 0, 0, 0.08),
+        0 3px 0 #ffffff;
+    }
+
+    .input-standard:focus {
       box-shadow: 
         0 1.5px 0 var(--gold-primary),
         0 3px 6px -1px rgba(140, 112, 66, 0.25);
@@ -586,6 +682,20 @@
       to { transform: translateY(0); opacity: 1; }
     }
 
+    #memoryModal.arch-modal-overlay,
+    #astralModal.arch-modal-overlay,
+    #conciergeModal.arch-modal-overlay {
+      align-items: flex-start;
+      padding-top: 8vh;
+    }
+
+    #memoryModal .arch-modal-window,
+    #astralModal .arch-modal-window,
+    #conciergeModal .arch-modal-window {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
     .modal-badge {
       display: inline-block;
       align-self: flex-start;
@@ -668,6 +778,7 @@
       font-size: 13.5px;
       color: var(--text-body);
       line-height: 1.75;
+      font-weight: 400;
     }
 
     .modal-palette-grid {
@@ -697,7 +808,7 @@
       flex-shrink: 0;
     }
 
-    /* Astral Input Field */
+    /* Modal Form Fields */
     .astral-field {
       display: flex;
       flex-direction: column;
@@ -764,6 +875,9 @@
       .section-main-title {
         font-size: 22px;
       }
+      .headline-main {
+        font-size: 30px;
+      }
     }
 
     @media (max-width: 640px) {
@@ -789,6 +903,20 @@
         display: flex;
       }
 
+      .headline-lead {
+        font-size: 14.5px;
+      }
+      .lead-baseline-tail {
+        width: 26px;
+        margin-bottom: 2px;
+      }
+      .headline-main {
+        font-size: 24px;
+      }
+      .statement-body {
+        font-size: 15px;
+      }
+
       .submit-wrap {
         flex-direction: column;
         align-items: flex-start;
@@ -800,6 +928,11 @@
       }
       .arch-modal-window {
         padding: 36px 20px;
+      }
+      #memoryModal.arch-modal-overlay,
+      #astralModal.arch-modal-overlay,
+      #conciergeModal.arch-modal-overlay {
+        padding-top: 5vh;
       }
       .easel-artwork-img {
         max-height: 400px;
@@ -820,9 +953,9 @@
 
     <!-- Desktop Navigation -->
     <ul class="nav-menu">
-      <li class="nav-item"><a href="#">Memory</a></li>
+      <li class="nav-item"><a id="navMemory">Memory</a></li>
       <li class="nav-item"><a href="#archive">archive</a></li>
-      <li class="nav-item"><a href="#concierge">Concierge</a></li>
+      <li class="nav-item"><a id="navConcierge">Concierge</a></li>
       <li class="nav-item"><a id="navAstral">Astral</a></li>
     </ul>
 
@@ -842,7 +975,7 @@
     <div class="drawer-center-stage">
       <ul class="mobile-nav-list">
         <li class="mobile-nav-item">
-          <a class="mobile-nav-link" href="#">
+          <a class="mobile-nav-link" id="mobileNavMemory">
             <span><span class="brand-prefix">M</span>emory</span>
             <span class="nav-arrow">↗</span>
           </a>
@@ -854,7 +987,7 @@
           </a>
         </li>
         <li class="mobile-nav-item">
-          <a class="mobile-nav-link" href="#concierge">
+          <a class="mobile-nav-link" id="mobileNavConcierge">
             <span><span class="brand-prefix">C</span>oncierge</span>
             <span class="nav-arrow">↗</span>
           </a>
@@ -884,13 +1017,13 @@
   <!-- ================= 2-COLUMN SECTION 1 ================= -->
   <main class="content-container">
     
-    <!-- Left Column (Harmonized Rich Gold Fill) -->
+    <!-- Left Column: 공식 도메인 메일 연결 -->
     <div class="left-column">
       <h1 class="section-main-title">About Color</h1>
       <div class="social-links">
         <a href="#" class="social-btn" aria-label="Archive">Ar</a>
         <a href="#" class="social-btn" aria-label="Instagram">In</a>
-        <a href="#" class="social-btn" aria-label="Mail">@</a>
+        <a href="mailto:MaC@mac.ai.kr" class="social-btn" aria-label="Mail">@</a>
       </div>
     </div>
 
@@ -898,25 +1031,39 @@
     <div class="right-column">
       
       <article class="statement-block">
-        <h2 class="statement-headline">
-          당신의 추억을<br>
-          색으로 돌려 드립니다.
-        </h2>
-        <div class="statement-divider"></div>
+        <div class="headline-stack">
+          <div class="headline-lead-wrap">
+            <span class="headline-lead">당신의 추억을 남겨 주세요</span>
+            <span class="lead-baseline-tail" aria-hidden="true"></span>
+          </div>
+          
+          <h2 class="headline-main">추억을<span class="headline-dots">...</span>색으로 돌려드립니다.</h2>
+        </div>
+
         <p class="statement-body">
           기억 속 장면과 정서를 한 줄의 문장과 색채 언어로 시각화합니다. 공간과 순간에 머물던 기억의 파편은 색면 추상으로 재구성되어 <span class="br-desktop"></span>형태 너머 내면 깊은 곳의 여운을 관조합니다.
         </p>
       </article>
 
-      <form class="arch-form-wrapper" id="colorArchForm">
-        <div class="form-row">
-          <label for="userMemory">Your Memory Statement</label>
-          <input type="text" id="userMemory" placeholder="당신의 기억을 한 줄로 적어 주세요." required />
+      <!-- novalidate 적용: 브라우저 기본 말풍선 간섭 차단 -->
+      <form class="arch-form-wrapper" id="colorArchForm" novalidate>
+        
+        <!-- [입력창 위쪽 인라인 감성 알림 툴팁 (기존 시스템 alert 대체)] -->
+        <div class="form-inline-tooltip" id="formInlineTooltip" role="alert" aria-live="polite">
+          <span class="tooltip-icon">✦</span>
+          <span class="tooltip-text" id="tooltipText">장소, 시간, 계절, 행동, 기분 등의 그날의 뉘앙스가 느껴지는 기억을 채워주세요. 좀 더 구체적일수록 잘 보여드릴게요.</span>
         </div>
 
+        <!-- 첫 번째 입력창: 연하고 고급스러운 라벨 & 강조된 밑줄 -->
+        <div class="form-row">
+          <label for="userMemory">Your Memory Statement</label>
+          <input type="text" id="userMemory" class="input-strong" placeholder="당신의 기억을 한 줄로 적어 주세요." />
+        </div>
+
+        <!-- 두 번째 입력창: 연하고 고급스러운 라벨 & 은은한 표준 밑줄 -->
         <div class="form-row">
           <label for="userEmail">Recipient Email</label>
-          <input type="email" id="userEmail" placeholder="결과를 전송받으실 이메일 주소" required />
+          <input type="email" id="userEmail" class="input-standard" placeholder="결과를 전송받으실 이메일 주소" />
         </div>
 
         <div class="submit-wrap">
@@ -929,26 +1076,52 @@
 
   </main>
 
+  <!-- ================= 1ST NAV: MEMORY PHILOSOPHY MODAL ================= -->
+  <aside id="memoryModal" class="arch-modal-overlay" aria-hidden="true">
+    <div class="arch-modal-window">
+      <button class="gallery-close-btn" id="memoryCloseBtn" aria-label="닫기">Close</button>
+      
+      <div class="modal-head-group">
+        <span class="modal-badge">Philosophy</span>
+        <h3 class="modal-main-title">박제된 시간, 불멸의 색채</h3>
+        <p class="modal-subtitle">Architecture of Memory &amp; Color</p>
+      </div>
+
+      <div class="modal-narrative-box">
+        형태는 소멸하고 시간은 흐르지만, 색채는 무의식의 가장 깊은 심연에 남아 영원히 박제됩니다.
+      </div>
+
+      <p class="statement-body" style="font-size: 14.5px; line-height: 1.85; font-weight: 400;">
+        망각의 파편으로 흩어지는 기억 속에서 찰나의 빛과 온도를 건져 올리는 일.<br>
+        MaC은 당신이 지나온 시간을, 한 편의 색채 표본으로 결코 바래지 않을 고유의 암호로 보존합니다.
+      </p>
+
+      <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: var(--text-light); text-transform: uppercase; margin-top: 4px;">
+        MaC Curatorial Archive
+      </div>
+    </div>
+  </aside>
+
   <!-- ================= REFERENCE LIGHTBOX MODAL ================= -->
   <aside id="archModal" class="arch-modal-overlay" aria-hidden="true">
     <div class="arch-modal-window">
       <button class="gallery-close-btn" id="modalCloseBtn" aria-label="닫기">Close</button>
 
       <div class="modal-head-group">
-        <span class="modal-badge">Reference Mood</span>
-        <h3 class="modal-main-title">놀이공원 추억: 슈가 핑크와 웜 브라운</h3>
-        <p class="modal-subtitle">Curated Reference &amp; Palette</p>
+        <span class="modal-badge" id="modalBadge">Reference Mood</span>
+        <h3 class="modal-main-title" id="modalTitle">놀이공원 추억: 슈가 핑크와 웜 브라운</h3>
+        <p class="modal-subtitle" id="modalSubtitle">Curated Reference &amp; Palette</p>
       </div>
 
-      <div class="easel-halo-stage">
-        <img class="easel-artwork-img" src="images/generReference.png" alt="놀이공원 추억: 슈가 핑크와 웜 브라운" onerror="this.src='https://picsum.photos/1000/1200?grayscale'" />
+      <div class="easel-halo-stage" id="modalImageStage">
+        <img class="easel-artwork-img" id="modalArtworkImg" src="images/generReference.png" alt="놀이공원 추억: 슈가 핑크와 웜 브라운" onerror="this.src='https://picsum.photos/1000/1200?grayscale'" />
       </div>
 
-      <div class="modal-narrative-box">
-        늘 바쁘던 아빠의 손을 잡고 나선 눈부신 5월의 휴일. 입안 가득 사르르 녹아내리던 달콤한 솜사탕, 회전목마의 황금빛 불빛과 왁자지껄한 음악 소리 속에서 마주 보며 웃던 <strong>따스하고 설렜던 오후.</strong>
+      <div class="modal-narrative-box" id="modalNarrative">
+        늘 바쁘던 아빠의 손을 잡고 나선 눈부신 5월의 휴일. 입안 가득 사르르 녹아내리던 달콤한 솜사탕, 회전목마의 황금빛 불빛과 왁자지껄한 음악 소리 속에서 마주 보며 웃던 따스하고 설렜던 오후.
       </div>
 
-      <div class="modal-palette-grid">
+      <div class="modal-palette-grid" id="modalPaletteGrid">
         <div class="palette-item">
           <span class="swatch-dot" style="background:#FFB7C5;"></span>
           <span>#FFB7C5 Sugar Pink</span>
@@ -969,9 +1142,35 @@
     </div>
   </aside>
 
-  <!-- ================= ASTRAL MODAL ================= -->
+  <!-- ================= 3RD NAV: CONCIERGE MODAL ================= -->
+  <aside id="conciergeModal" class="arch-modal-overlay" aria-hidden="true">
+    <div class="arch-modal-window">
+      <button class="gallery-close-btn" id="conciergeCloseBtn" aria-label="닫기">Close</button>
+      
+      <div class="modal-head-group">
+        <span class="modal-badge">Client Service</span>
+        <h3 class="modal-main-title">Concierge Desk</h3>
+        <p class="modal-subtitle">Architecture of Memory &amp; Color</p>
+      </div>
+
+      <div class="modal-narrative-box">
+        컬러 아카이빙 문의, 맞춤형 색채 큐레이션 및 협업 제안은 전용 컨시어지 채널을 통해 접수받고 있습니다.
+      </div>
+
+      <div style="padding: 16px 0; border-top: 1px solid var(--line-subtle); border-bottom: 1px solid var(--line-subtle);">
+        <p style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;">Inquiry Email</p>
+        <a href="mailto:concierge@mac.ai.kr" style="font-size: 16px; font-weight: 700; color: var(--gold-primary); text-decoration: none; letter-spacing: 0.02em;">concierge@mac.ai.kr</a>
+      </div>
+
+      <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: var(--text-light); text-transform: uppercase; margin-top: 4px;">
+        MaC Concierge Service
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================= 4TH NAV: ASTRAL MODAL ================= -->
   <aside id="astralModal" class="arch-modal-overlay" aria-hidden="true">
-    <div class="arch-modal-window" style="max-width: 500px;">
+    <div class="arch-modal-window">
       <button class="gallery-close-btn" id="astralCloseBtn" aria-label="닫기">Close</button>
       
       <div class="modal-head-group">
@@ -986,7 +1185,7 @@
       </div>
 
       <div class="modal-narrative-box">
-        타고난 사주 오행의 기운을 분석하여 본연의 파동을 북돋워 주는 <strong>고유색과 수호색(보호색) 큐레이션 서비스</strong>가 곧 공개됩니다.
+        타고난 사주 오행의 기운을 분석하여 본연의 파동을 북돋워 주는 고유색과 수호색(보호색) 큐레이션 서비스가 곧 공개됩니다.
       </div>
 
       <button type="button" class="astral-disabled-btn" disabled>Coming Soon</button>
@@ -1056,13 +1255,67 @@
 
     mobileNavLinks.forEach(link => {
       link.addEventListener('click', () => {
-        if (link.id !== 'mobileNavAstral') {
+        if (link.id !== 'mobileNavAstral' && link.id !== 'mobileNavMemory' && link.id !== 'mobileNavConcierge') {
           closeMobileDrawer();
         }
       });
     });
 
-    // Astral Modal (Desktop & Mobile)
+    // 1st Nav: Memory Modal Controls
+    const navMemory = document.getElementById('navMemory');
+    const mobileNavMemory = document.getElementById('mobileNavMemory');
+    const memoryModal = document.getElementById('memoryModal');
+    const memoryCloseBtn = document.getElementById('memoryCloseBtn');
+
+    function openMemoryModal() {
+      playChime();
+      closeMobileDrawer();
+      memoryModal.classList.add('is-active');
+    }
+
+    if (navMemory) navMemory.addEventListener('click', openMemoryModal);
+    if (mobileNavMemory) mobileNavMemory.addEventListener('click', openMemoryModal);
+
+    if (memoryCloseBtn) {
+      memoryCloseBtn.addEventListener('click', () => {
+        memoryModal.classList.remove('is-active');
+      });
+    }
+
+    if (memoryModal) {
+      memoryModal.addEventListener('click', (e) => {
+        if (e.target === memoryModal) memoryModal.classList.remove('is-active');
+      });
+    }
+
+    // 3rd Nav: Concierge Modal Controls
+    const navConcierge = document.getElementById('navConcierge');
+    const mobileNavConcierge = document.getElementById('mobileNavConcierge');
+    const conciergeModal = document.getElementById('conciergeModal');
+    const conciergeCloseBtn = document.getElementById('conciergeCloseBtn');
+
+    function openConciergeModal() {
+      playChime();
+      closeMobileDrawer();
+      conciergeModal.classList.add('is-active');
+    }
+
+    if (navConcierge) navConcierge.addEventListener('click', openConciergeModal);
+    if (mobileNavConcierge) mobileNavConcierge.addEventListener('click', openConciergeModal);
+
+    if (conciergeCloseBtn) {
+      conciergeCloseBtn.addEventListener('click', () => {
+        conciergeModal.classList.remove('is-active');
+      });
+    }
+
+    if (conciergeModal) {
+      conciergeModal.addEventListener('click', (e) => {
+        if (e.target === conciergeModal) conciergeModal.classList.remove('is-active');
+      });
+    }
+
+    // 4th Nav: Astral Modal Controls
     const navAstral = document.getElementById('navAstral');
     const mobileNavAstral = document.getElementById('mobileNavAstral');
     const astralModal = document.getElementById('astralModal');
@@ -1089,27 +1342,138 @@
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         modal.classList.remove('is-active');
+        memoryModal.classList.remove('is-active');
+        conciergeModal.classList.remove('is-active');
         astralModal.classList.remove('is-active');
         closeMobileDrawer();
       }
     });
 
-    // Form Submission
+    /* ==========================================================================
+       [인라인 알림 툴팁 제어 함수]
+       ========================================================================== */
+    const inlineTooltip = document.getElementById('formInlineTooltip');
+    const tooltipText = document.getElementById('tooltipText');
+
+    function showInlineNotice(message) {
+      if (!inlineTooltip || !tooltipText) return;
+      tooltipText.textContent = message;
+      inlineTooltip.classList.add('is-active');
+      inlineTooltip.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function hideInlineNotice() {
+      if (!inlineTooltip) return;
+      inlineTooltip.classList.remove('is-active');
+    }
+
+    document.getElementById('userMemory').addEventListener('input', hideInlineNotice);
+    document.getElementById('userEmail').addEventListener('input', hideInlineNotice);
+
+    /* ==========================================================================
+       [동적 결과 모달 렌더링 함수: 4색 표본 출력]
+       ========================================================================== */
+    function displaySynthesizedPalette(resultData) {
+      const modal = document.getElementById('archModal');
+      const badge = document.getElementById('modalBadge');
+      const title = document.getElementById('modalTitle');
+      const subtitle = document.getElementById('modalSubtitle');
+      const narrative = document.getElementById('modalNarrative');
+      const paletteGrid = document.getElementById('modalPaletteGrid');
+
+      if (badge) badge.textContent = `Specimen: ${resultData.hash || resultData.specimen_code || 'MaC Archive'}`;
+      if (title) title.textContent = resultData.title || "당신의 추억에서 추출된 4색 표본";
+      if (subtitle) subtitle.textContent = "AI Synthesized Palette Specimen";
+      if (narrative && resultData.memory_summary) {
+        narrative.textContent = resultData.memory_summary;
+      }
+
+      if (paletteGrid && Array.isArray(resultData.palette)) {
+        paletteGrid.innerHTML = '';
+        resultData.palette.forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'palette-item';
+          div.innerHTML = `
+            <span class="swatch-dot" style="background:${item.hex};"></span>
+            <span>${item.hex} ${item.name || ''}</span>
+          `;
+          paletteGrid.appendChild(div);
+        });
+      }
+
+      modal.classList.add('is-active');
+    }
+
+    /* ==========================================================================
+       [섹션 1 폼 유효성 검증 및 API 파이프라인 연동]
+       ========================================================================== */
     const form = document.getElementById('colorArchForm');
     const submitBtn = document.getElementById('submitBtn');
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      
+      const memoryInputField = document.getElementById('userMemory');
+      const emailInputField = document.getElementById('userEmail');
+      const memoryInput = memoryInputField.value.trim();
+      const emailInput = emailInputField.value.trim();
+
+      /* 1. 기억 문장 10자 미만 검증 */
+      if (memoryInput.length < 10) {
+        showInlineNotice("장소, 시간, 계절, 행동, 기분 등의 그날의 뉘앙스가 느껴지는 기억을 채워주세요. 좀 더 구체적일수록 잘 보여드릴게요.");
+        memoryInputField.focus();
+        return;
+      }
+
+      /* 2. 이메일 필수 입력 및 정규식 포맷 검증 */
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailInput || !emailRegex.test(emailInput)) {
+        showInlineNotice("결과를 전송받으실 올바른 이메일 주소 형식을 입력해 주세요.");
+        emailInputField.focus();
+        return;
+      }
+
+      hideInlineNotice();
       playChime();
       submitBtn.disabled = true;
       submitBtn.textContent = 'Synthesizing...';
-      
-      setTimeout(() => {
+
+      try {
+        const response = await fetch('/api/analyze', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            memory: memoryInput,
+            email: emailInput
+          })
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          showInlineNotice(result.error || "색채 표본 추출에 실패했습니다. 문장을 조금 더 구체적으로 작성해 주세요.");
+          return;
+        }
+
+        if (result.status === 'success' && result.palette && result.palette.length === 4) {
+          displaySynthesizedPalette(result);
+          form.reset();
+
+          if (result.email_sent === false) {
+            console.warn("[Resend Warning] 이메일 발송 실패 로그:", result.email_error);
+          }
+        } else {
+          showInlineNotice(result.error || '분석 결과 형식이 올바르지 않습니다. 다시 시도해 주세요.');
+        }
+
+      } catch (err) {
+        showInlineNotice('서버와 통신할 수 없습니다. 잠시 후 다시 시도해 주세요.');
+      } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Synthesize Palette';
-        alert('Hex 컬러칩이 이메일로 전송되었습니다.');
-        form.reset();
-      }, 1200);
+      }
     });
   </script>
 </body>
