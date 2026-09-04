@@ -4,10 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <!-- 주소표시줄 / 브라우저 탭 타이틀 -->
   <title>MaC | 𝑀𝑒𝓂𝑜𝓇𝓎 𝒶𝓃𝒹 𝒞𝑜𝓁𝑜𝓇</title>
 
-  <!-- 브라우저 탭 파비콘 -->
   <link rel="icon" type="image/png" href="images/reference.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -174,7 +172,7 @@
     }
 
     /* --------------------------------------------------------------------------
-       [Mobile Fullscreen Minimalist Drawer]
+       [Mobile Fullscreen Minimalist Drawer - 세련된 원본 복원]
        -------------------------------------------------------------------------- */
     .mobile-drawer {
       display: none;
@@ -245,6 +243,7 @@
       justify-content: space-between;
       align-items: center;
       width: 100%;
+      cursor: pointer;
     }
 
     .mobile-nav-item a .brand-prefix {
@@ -404,9 +403,6 @@
       min-width: 0;
     }
 
-    /* --------------------------------------------------------------------------
-       [Headline & Typography Refinement]
-       -------------------------------------------------------------------------- */
     .statement-block {
       display: flex;
       flex-direction: column;
@@ -486,7 +482,7 @@
     }
 
     /* --------------------------------------------------------------------------
-       [Architectural Form & Elegant Soft-Gold Labels]
+       [Form & Inputs]
        -------------------------------------------------------------------------- */
     .arch-form-wrapper {
       margin-top: 10px;
@@ -495,7 +491,6 @@
       width: 100%;
     }
 
-    /* 인라인 감성 알림 툴팁 (기존 시스템 alert 대체) */
     .form-inline-tooltip {
       display: none;
       margin-bottom: 22px;
@@ -630,6 +625,12 @@
         inset 0 2px 4px rgba(0, 0, 0, 0.3);
     }
 
+    .submit-arch-btn:disabled {
+      background: #8c827a;
+      cursor: not-allowed;
+      transform: none;
+    }
+
     .form-guide-txt {
       font-size: 13.5px;
       color: var(--text-muted);
@@ -638,7 +639,7 @@
     }
 
     /* --------------------------------------------------------------------------
-       [Universal Minimalist Modals]
+       [Universal Minimalist Modals (Memory, Concierge, Astral, Reference Mood)]
        -------------------------------------------------------------------------- */
     .arch-modal-overlay {
       display: none;
@@ -808,7 +809,6 @@
       flex-shrink: 0;
     }
 
-    /* Modal Form Fields */
     .astral-field {
       display: flex;
       flex-direction: column;
@@ -855,6 +855,280 @@
     }
 
     /* --------------------------------------------------------------------------
+       [Synthesized Chromatic Specimen Modal (스펙트럼 & 지니 흡입 애니메이션)]
+       -------------------------------------------------------------------------- */
+    .mac-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(24, 22, 20, 0.45);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      opacity: 1;
+      padding: 20px;
+      transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .mac-modal-backdrop.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .mac-modal {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      background: #faf8f5;
+      border: 1px solid #e2ddd3;
+      border-radius: 20px;
+      box-shadow: 0 25px 60px rgba(28, 25, 23, 0.16), 0 0 35px rgba(232, 180, 184, 0.12);
+      overflow: hidden;
+      transform-origin: 50% 10%;
+      transform: scale(1) translateY(0) rotateX(0deg);
+      opacity: 1;
+      filter: blur(0px);
+      transition: 
+        transform 0.45s cubic-bezier(0.34, 1.3, 0.64, 1),
+        opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .mac-modal-backdrop.hidden .mac-modal {
+      transform: scale(0.15, 0.05) translateY(-60px) rotateX(30deg);
+      opacity: 0;
+      filter: blur(8px);
+      transition: 
+        transform 0.4s cubic-bezier(0.55, 0.055, 0.675, 0.19),
+        opacity 0.35s ease-in,
+        filter 0.35s ease-in;
+    }
+
+    .modal-close-handle-wrap {
+      width: 100%;
+      padding-top: 14px;
+      padding-bottom: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      background: #faf8f5;
+    }
+
+    .modal-close-handle-bar {
+      width: 44px;
+      height: 4px;
+      background: #d1cbc1;
+      border-radius: 2px;
+      transition: all 0.2s ease;
+    }
+
+    .modal-close-handle-wrap:hover .modal-close-handle-bar {
+      background: #8c827a;
+      transform: scaleX(1.15);
+    }
+
+    .specimen-header {
+      padding: 4px 20px 14px 20px;
+      background: #faf8f5;
+      border-bottom: 1px solid #ede8e0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .specimen-header .brand {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      font-weight: 800;
+      color: #1c1917;
+      text-transform: uppercase;
+    }
+
+    .specimen-header .hash-chip {
+      font-family: ui-monospace, Menlo, monospace;
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: #78716c;
+      background: #eeeae3;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    .specimen-body {
+      padding: 20px 20px 22px 20px;
+      background: #ffffff;
+    }
+
+    .summary-box {
+      background: #faf8f5;
+      border-left: 3px solid #1c1917;
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .summary-text {
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: #292524;
+      font-weight: 600;
+    }
+
+    .spectrum-section {
+      margin-bottom: 20px;
+      max-height: 50px;
+      opacity: 1;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, margin-bottom 0.35s ease;
+    }
+
+    .spectrum-section.collapsed {
+      max-height: 0;
+      opacity: 0;
+      margin-bottom: 6px;
+    }
+
+    .spectrum-label {
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #8c827a;
+      font-weight: 700;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .spectrum-bar {
+      width: 100%;
+      height: 14px;
+      border-radius: 4px;
+      display: flex;
+      overflow: hidden;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .spectrum-segment {
+      height: 100%;
+      transition: width 0.3s ease;
+    }
+
+    .specimen-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .specimen-card {
+      display: flex;
+      align-items: center;
+      background: #ffffff;
+      border: 1px solid #eeeae3;
+      border-radius: 8px;
+      padding: 8px 12px;
+      gap: 12px;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+
+    .specimen-card:hover {
+      transform: translateX(3px);
+      border-color: #d1cbc1;
+    }
+
+    .swatch {
+      width: 42px;
+      height: 42px;
+      border-radius: 6px;
+      flex-shrink: 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+    }
+
+    .specimen-info {
+      flex-grow: 1;
+      min-width: 0;
+    }
+
+    .info-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2px;
+    }
+
+    .color-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1c1917;
+    }
+
+    .hex-code {
+      font-family: ui-monospace, Menlo, monospace;
+      font-size: 10px;
+      font-weight: 600;
+      color: #78716c;
+    }
+
+    .reason-text {
+      font-size: 11px;
+      color: #78716c;
+      line-height: 1.4;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .ratio-pill {
+      font-family: ui-monospace, Menlo, monospace;
+      font-size: 9.5px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: #f5f2eb;
+      color: #44403c;
+      margin-left: 6px;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .ratio-pill.collapsed {
+      opacity: 0;
+      transform: scale(0.8);
+      pointer-events: none;
+    }
+
+    .control-panel {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px dashed #e2ddd3;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .control-panel button {
+      font-size: 11px;
+      padding: 7px 14px;
+      background: #1c1917;
+      color: #f5f3ef;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .control-panel button:active {
+      transform: scale(0.96);
+    }
+
+    .control-panel button:hover {
+      background: #383330;
+    }
+
+    /* --------------------------------------------------------------------------
        [Responsive Media Queries]
        -------------------------------------------------------------------------- */
     @media (max-width: 960px) {
@@ -863,6 +1137,13 @@
       }
       .nav-menu {
         gap: 20px;
+        display: none;
+      }
+      .mobile-menu-btn {
+        display: flex;
+      }
+      .mobile-drawer {
+        display: flex;
       }
       .content-container {
         grid-template-columns: 1fr;
@@ -891,16 +1172,6 @@
         right: 18px;
         bottom: 14px;
         font-size: 10.5px;
-      }
-      
-      .nav-menu {
-        display: none;
-      }
-      .mobile-menu-btn {
-        display: flex;
-      }
-      .mobile-drawer {
-        display: flex;
       }
 
       .headline-lead {
@@ -966,7 +1237,7 @@
     </button>
   </header>
 
-  <!-- ================= MOBILE FULLSCREEN DRAWER ================= -->
+  <!-- ================= MOBILE FULLSCREEN DRAWER (세련된 원본 마크업 복원) ================= -->
   <div class="mobile-drawer" id="mobileDrawer">
     <div class="drawer-top-bar">
       <button class="gallery-close-btn" id="mobileDrawerCloseBtn" aria-label="메뉴 닫기">Close</button>
@@ -1017,7 +1288,6 @@
   <!-- ================= 2-COLUMN SECTION 1 ================= -->
   <main class="content-container">
     
-    <!-- Left Column: 공식 도메인 메일 연결 -->
     <div class="left-column">
       <h1 class="section-main-title">About Color</h1>
       <div class="social-links">
@@ -1027,7 +1297,6 @@
       </div>
     </div>
 
-    <!-- Right Column -->
     <div class="right-column">
       
       <article class="statement-block">
@@ -1045,22 +1314,18 @@
         </p>
       </article>
 
-      <!-- novalidate 적용: 브라우저 기본 말풍선 간섭 차단 -->
       <form class="arch-form-wrapper" id="colorArchForm" novalidate>
         
-        <!-- [입력창 위쪽 인라인 감성 알림 툴팁 (기존 시스템 alert 대체)] -->
         <div class="form-inline-tooltip" id="formInlineTooltip" role="alert" aria-live="polite">
           <span class="tooltip-icon">✦</span>
           <span class="tooltip-text" id="tooltipText">장소, 시간, 계절, 행동, 기분 등의 그날의 뉘앙스가 느껴지는 기억을 채워주세요. 좀 더 구체적일수록 잘 보여드릴게요.</span>
         </div>
 
-        <!-- 첫 번째 입력창: 연하고 고급스러운 라벨 & 강조된 밑줄 -->
         <div class="form-row">
           <label for="userMemory">Your Memory Statement</label>
           <input type="text" id="userMemory" class="input-strong" placeholder="당신의 기억을 한 줄로 적어 주세요." />
         </div>
 
-        <!-- 두 번째 입력창: 연하고 고급스러운 라벨 & 은은한 표준 밑줄 -->
         <div class="form-row">
           <label for="userEmail">Recipient Email</label>
           <input type="email" id="userEmail" class="input-standard" placeholder="결과를 전송받으실 이메일 주소" />
@@ -1192,48 +1457,171 @@
     </div>
   </aside>
 
-  <script>
-    function playChime() {
-      try {
-        const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        if (!AudioCtx) return;
-        const ctx = new AudioCtx();
-        const now = ctx.currentTime;
-        const tones = [1046.5, 1318.5, 1760.0];
-        const times = [0.0, 0.04, 0.08];
+  <!-- ================= SYNTHESIZED SPECIMEN MODAL (결과 출력 전용 지니 모달) ================= -->
+  <div id="modalBackdrop" class="mac-modal-backdrop hidden" aria-hidden="true">
+    <div class="mac-modal">
+      
+      <!-- 상단 핸들형 닫기 바 -->
+      <div class="modal-close-handle-wrap" onclick="closeDynamicModal()" title="닫기">
+        <div class="modal-close-handle-bar"></div>
+      </div>
 
-        tones.forEach((freq, i) => {
+      <!-- Header -->
+      <div class="specimen-header">
+        <span class="brand">MaC Specimen Archive</span>
+        <span id="specimenHash" class="hash-chip">MaC-00.00.000</span>
+      </div>
+
+      <div class="specimen-body">
+        <!-- Memory Narrative Summary -->
+        <div class="summary-box">
+          <p id="memorySummary" class="summary-text"></p>
+        </div>
+
+        <!-- [면적비 영역] Spectrum Bar -->
+        <div class="spectrum-section" id="spectrumSection">
+          <div class="spectrum-label">
+            <span>Chromatic Balance (Area Ratio)</span>
+            <span id="ratioLabel">45% : 30% : 15% : 10%</span>
+          </div>
+          <div class="spectrum-bar" id="spectrumBar"></div>
+        </div>
+
+        <!-- Specimen List -->
+        <div class="specimen-list" id="specimenList"></div>
+
+        <!-- Controls (면적비 유무 비교) -->
+        <div class="control-panel">
+          <span style="font-size: 11px; color: #78716c;">면적비 유무 비교:</span>
+          <button type="button" onclick="toggleRatio()">면적비 토글(ON/OFF)</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= JAVASCRIPT ================= -->
+  <script>
+    /* -------------------------------------------------------------------------
+       1. Web Audio 사운드 신디사이저 엔진 (사파리 브라우저 무음 차단 해결)
+       ------------------------------------------------------------------------- */
+    let audioCtx = null;
+    function getAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    // [사운드 1] 차르릉~ 맑은 잔향의 튜닝 포크 어쿠스틱 화음 사운드 (볼륨 강화)
+    function playArchiveRevealSound() {
+      try {
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
+        [440.0, 659.25, 880.0].forEach((freq, i) => {
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(freq, now + times[i]);
-          gain.gain.setValueAtTime(0.04, now + times[i]);
-          gain.gain.exponentialRampToValueAtTime(0.0001, now + times[i] + 0.18);
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(freq, now + i * 0.045);
+          gain.gain.setValueAtTime(0.0001, now + i * 0.045);
+          gain.gain.exponentialRampToValueAtTime(0.08 / (i + 1), now + i * 0.045 + 0.06);
+          gain.gain.exponentialRampToValueAtTime(0.00001, now + i * 0.045 + 1.25);
           osc.connect(gain);
           gain.connect(ctx.destination);
-          osc.start(now + times[i]);
-          osc.stop(now + times[i] + 0.19);
+          osc.start(now + i * 0.045);
+          osc.stop(now + i * 0.045 + 1.3);
         });
       } catch (e) {}
     }
 
-    // Reference Lightbox Modal
+    // [사운드 2] 지니 흡입 느낌의 부드러운 댐퍼 딤 사운드
+    function playArchiveCloseSound() {
+      try {
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(140, now);
+        osc.frequency.exponentialRampToValueAtTime(40, now + 0.22);
+        gain.gain.setValueAtTime(0.06, now);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.24);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.25);
+      } catch (e) {}
+    }
+
+    // [사운드 3] 차임벨 어쿠스틱 챠임
+    function playChime() {
+      try {
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
+        const tones = [1046.5, 1318.5, 1760.0];
+        tones.forEach((freq, i) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, now + i * 0.04);
+          gain.gain.setValueAtTime(0.05, now + i * 0.04);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.04 + 0.2);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now + i * 0.04);
+          osc.stop(now + i * 0.04 + 0.22);
+        });
+      } catch (e) {}
+    }
+
+    // [사운드 4] 면적비 토글 래칫 사운드
+    function playToggleSound(isOn) {
+      try {
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = "triangle";
+        const startFreq = isOn ? 820 : 1040;
+        const endFreq = isOn ? 1040 : 760;
+        osc.frequency.setValueAtTime(startFreq, now);
+        osc.frequency.exponentialRampToValueAtTime(endFreq, now + 0.04);
+        gain.gain.setValueAtTime(0.08, now);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.045);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.05);
+      } catch (e) {}
+    }
+
+    /* -------------------------------------------------------------------------
+       2. 상단 네비게이션 3종 모달 & 배너 제어
+       ------------------------------------------------------------------------- */
     const banner = document.getElementById('heroBanner');
-    const modal = document.getElementById('archModal');
-    const closeBtn = document.getElementById('modalCloseBtn');
+    const archModal = document.getElementById('archModal');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
 
-    banner.addEventListener('click', () => {
-      playChime();
-      modal.classList.add('is-active');
-    });
+    if (banner) {
+      banner.addEventListener('click', () => {
+        playChime();
+        archModal.classList.add('is-active');
+      });
+    }
 
-    closeBtn.addEventListener('click', () => {
-      modal.classList.remove('is-active');
-    });
+    if (modalCloseBtn) {
+      modalCloseBtn.addEventListener('click', () => {
+        archModal.classList.remove('is-active');
+      });
+    }
 
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) modal.classList.remove('is-active');
-    });
+    if (archModal) {
+      archModal.addEventListener('click', (e) => {
+        if (e.target === archModal) archModal.classList.remove('is-active');
+      });
+    }
 
     // Mobile Drawer Controls
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -1250,8 +1638,8 @@
       mobileDrawer.classList.remove('is-open');
     }
 
-    mobileMenuBtn.addEventListener('click', openMobileDrawer);
-    mobileDrawerCloseBtn.addEventListener('click', closeMobileDrawer);
+    if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMobileDrawer);
+    if (mobileDrawerCloseBtn) mobileDrawerCloseBtn.addEventListener('click', closeMobileDrawer);
 
     mobileNavLinks.forEach(link => {
       link.addEventListener('click', () => {
@@ -1327,31 +1715,74 @@
       astralModal.classList.add('is-active');
     }
 
-    navAstral.addEventListener('click', openAstralModal);
-    mobileNavAstral.addEventListener('click', openAstralModal);
+    if (navAstral) navAstral.addEventListener('click', openAstralModal);
+    if (mobileNavAstral) mobileNavAstral.addEventListener('click', openAstralModal);
 
-    astralCloseBtn.addEventListener('click', () => {
-      astralModal.classList.remove('is-active');
-    });
+    if (astralCloseBtn) {
+      astralCloseBtn.addEventListener('click', () => {
+        astralModal.classList.remove('is-active');
+      });
+    }
 
-    astralModal.addEventListener('click', (e) => {
-      if (e.target === astralModal) astralModal.classList.remove('is-active');
-    });
+    if (astralModal) {
+      astralModal.addEventListener('click', (e) => {
+        if (e.target === astralModal) astralModal.classList.remove('is-active');
+      });
+    }
 
-    // ESC Key Exit
+    /* -------------------------------------------------------------------------
+       3. 4색 결과 지니 모달 (Dynamic Result Modal) 제어
+       ------------------------------------------------------------------------- */
+    const modalBackdrop = document.getElementById("modalBackdrop");
+
+    function openDynamicModal() {
+      playArchiveRevealSound();
+      modalBackdrop.classList.remove("hidden");
+    }
+
+    function closeDynamicModal() {
+      playArchiveCloseSound();
+      modalBackdrop.classList.add("hidden");
+    }
+
+    if (modalBackdrop) {
+      modalBackdrop.addEventListener("click", (e) => {
+        if (e.target === modalBackdrop) closeDynamicModal();
+      });
+    }
+
+    let showRatio = true;
+    function toggleRatio() {
+      showRatio = !showRatio;
+      playToggleSound(showRatio);
+
+      const spectrum = document.getElementById('spectrumSection');
+      const pills = document.querySelectorAll('.ratio-pill');
+
+      if (showRatio) {
+        spectrum.classList.remove('collapsed');
+        pills.forEach(p => p.classList.remove('collapsed'));
+      } else {
+        spectrum.classList.add('collapsed');
+        pills.forEach(p => p.classList.add('collapsed'));
+      }
+    }
+
+    // ESC Key 일괄 닫기
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
-        modal.classList.remove('is-active');
+        archModal.classList.remove('is-active');
         memoryModal.classList.remove('is-active');
         conciergeModal.classList.remove('is-active');
         astralModal.classList.remove('is-active');
+        closeDynamicModal();
         closeMobileDrawer();
       }
     });
 
-    /* ==========================================================================
-       [인라인 알림 툴팁 제어 함수]
-       ========================================================================== */
+    /* -------------------------------------------------------------------------
+       4. 알림 툴팁 제어
+       ------------------------------------------------------------------------- */
     const inlineTooltip = document.getElementById('formInlineTooltip');
     const tooltipText = document.getElementById('tooltipText');
 
@@ -1370,62 +1801,72 @@
     document.getElementById('userMemory').addEventListener('input', hideInlineNotice);
     document.getElementById('userEmail').addEventListener('input', hideInlineNotice);
 
-    /* ==========================================================================
-       [동적 결과 모달 렌더링 함수: 4색 표본 출력]
-       ========================================================================== */
-    function displaySynthesizedPalette(resultData) {
-      const modal = document.getElementById('archModal');
-      const badge = document.getElementById('modalBadge');
-      const title = document.getElementById('modalTitle');
-      const subtitle = document.getElementById('modalSubtitle');
-      const narrative = document.getElementById('modalNarrative');
-      const paletteGrid = document.getElementById('modalPaletteGrid');
+    /* -------------------------------------------------------------------------
+       5. 백엔드 API 응답 데이터 -> 지니 모달 렌더링
+       ------------------------------------------------------------------------- */
+    function renderDynamicSpecimen(result) {
+      const specimenHash = result.hash || result.specimen_code || "MaC-Archive";
+      const summary = result.memory_summary || result.data?.memory_summary || "";
+      const palette = result.palette || result.data?.palette || [];
 
-      if (badge) badge.textContent = `Specimen: ${resultData.hash || resultData.specimen_code || 'MaC Archive'}`;
-      if (title) title.textContent = resultData.title || "당신의 추억에서 추출된 4색 표본";
-      if (subtitle) subtitle.textContent = "AI Synthesized Palette Specimen";
-      if (narrative && resultData.memory_summary) {
-        narrative.textContent = resultData.memory_summary;
-      }
+      document.getElementById("specimenHash").textContent = specimenHash;
+      document.getElementById("memorySummary").textContent = `"${summary}"`;
 
-      if (paletteGrid && Array.isArray(resultData.palette)) {
-        paletteGrid.innerHTML = '';
-        resultData.palette.forEach(item => {
-          const div = document.createElement('div');
-          div.className = 'palette-item';
-          div.innerHTML = `
-            <span class="swatch-dot" style="background:${item.hex};"></span>
-            <span>${item.hex} ${item.name || ''}</span>
-          `;
-          paletteGrid.appendChild(div);
-        });
-      }
+      document.getElementById("ratioLabel").textContent = palette.map(p => {
+        const w = p.weight !== undefined ? p.weight : (p.area_ratio !== undefined ? p.area_ratio : 0.25);
+        return `${Math.round(w * 100)}%`;
+      }).join(" : ");
 
-      modal.classList.add('is-active');
+      document.getElementById("spectrumBar").innerHTML = palette.map(p => {
+        const w = p.weight !== undefined ? p.weight : (p.area_ratio !== undefined ? p.area_ratio : 0.25);
+        return `<div class="spectrum-segment" style="width: ${w * 100}%; background-color: ${p.hex};"></div>`;
+      }).join("");
+
+      document.getElementById("specimenList").innerHTML = palette.map(p => {
+        const w = p.weight !== undefined ? p.weight : (p.area_ratio !== undefined ? p.area_ratio : 0.25);
+        return `
+          <div class="specimen-card">
+            <div class="swatch" style="background-color: ${p.hex};"></div>
+            <div class="specimen-info">
+              <div class="info-top">
+                <span class="color-name">${p.color_name || 'Color'}</span>
+                <div>
+                  <span class="hex-code">${p.hex.toUpperCase()}</span>
+                  <span class="ratio-pill">${Math.round(w * 100)}%</span>
+                </div>
+              </div>
+              <p class="reason-text">${p.reason || ''}</p>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      openDynamicModal();
     }
 
-    /* ==========================================================================
-       [섹션 1 폼 유효성 검증 및 API 파이프라인 연동]
-       ========================================================================== */
+    /* -------------------------------------------------------------------------
+       6. 폼 전송 이벤트 및 /api/analyze 호출
+       ------------------------------------------------------------------------- */
     const form = document.getElementById('colorArchForm');
     const submitBtn = document.getElementById('submitBtn');
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      
+
+      // 버튼을 누르는 순간 브라우저 오디오 컨텍스트 즉시 활성화
+      getAudioContext();
+
       const memoryInputField = document.getElementById('userMemory');
       const emailInputField = document.getElementById('userEmail');
       const memoryInput = memoryInputField.value.trim();
       const emailInput = emailInputField.value.trim();
 
-      /* 1. 기억 문장 10자 미만 검증 */
       if (memoryInput.length < 10) {
         showInlineNotice("장소, 시간, 계절, 행동, 기분 등의 그날의 뉘앙스가 느껴지는 기억을 채워주세요. 좀 더 구체적일수록 잘 보여드릴게요.");
         memoryInputField.focus();
         return;
       }
 
-      /* 2. 이메일 필수 입력 및 정규식 포맷 검증 */
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailInput || !emailRegex.test(emailInput)) {
         showInlineNotice("결과를 전송받으실 올바른 이메일 주소 형식을 입력해 주세요.");
@@ -1434,7 +1875,6 @@
       }
 
       hideInlineNotice();
-      playChime();
       submitBtn.disabled = true;
       submitBtn.textContent = 'Synthesizing...';
 
@@ -1458,11 +1898,11 @@
         }
 
         if (result.status === 'success' && result.palette && result.palette.length === 4) {
-          displaySynthesizedPalette(result);
+          renderDynamicSpecimen(result);
           form.reset();
 
           if (result.email_sent === false) {
-            console.warn("[Resend Warning] 이메일 발송 실패 로그:", result.email_error);
+            console.warn("[Resend Warning] 이메일 발송 로그:", result.email_error);
           }
         } else {
           showInlineNotice(result.error || '분석 결과 형식이 올바르지 않습니다. 다시 시도해 주세요.');

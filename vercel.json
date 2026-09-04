@@ -1,0 +1,7 @@
+{
+  "framework": null,
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/api/analyze", "destination": "/api/analyze" }
+  ]
+}
