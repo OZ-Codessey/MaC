@@ -1,4 +1,4 @@
-![놀이공원](./reference.png)  
+![놀이공원](./images/reference.png)
 # MaC
 ### [ Memory and Color | My and Color ] 
 
