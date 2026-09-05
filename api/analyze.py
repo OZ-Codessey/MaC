@@ -9,18 +9,8 @@ MaC (Memory & Color) Architecture — Vercel Serverless Pipeline Handler
 3. 원본 emailTemplate.html의 다크 씰 토글(<details>/<summary>) 및 슬림 2x2 카드 복원.
 4. CORS 프리플라이트 및 Resend 트랜잭션 메일 발송 처리.
 5. Vercel Python 런타임이 실제로 인식하는 BaseHTTPRequestHandler 진입점 적용.
-   (기존 `def handler(environ, start_response)` 형태의 raw WSGI 함수는
-    Vercel의 @vercel/python 런타임이 유효한 서버리스 함수로 인식하지 못해
-    빌드 시점에 라우트 자체가 등록되지 않고 404가 발생했습니다. 이를
-    Vercel이 공식 지원하는 BaseHTTPRequestHandler 클래스 기반으로 교체했습니다.)
 6. 4대 계층별 예외 처리 기준(400 유효성, 502 AI 재시도, HEX 정규식 검증, Non-blocking 이메일) 완비.
-
-[이번 수정 사항 요약]
-- [FIX 1] 진입점을 `def handler(environ, start_response)` → `class handler(BaseHTTPRequestHandler)`
-          로 교체. Vercel Python 런타임 규격 미준수로 인한 404 원인 해결.
-- [FIX 2] srgb_to_xyz() 내부 `linearize(gl), linearize(bl)` 오타(정의되지 않은 자기 자신을
-          참조하던 NameError 버그)를 `linearize(g), linearize(b)`로 수정.
-- 나머지 비즈니스 로직(색채 연산, 검증, 이메일 발송)은 원본과 동일하게 유지.
+7. [신규 추가] 컨시어지 문의 폼(Concierge@mac.ai.kr) 단일 관문 라우팅 분기 처리 완비.
 ================================================================================
 """
 
@@ -73,8 +63,6 @@ def srgb_to_xyz(r: float, g: float, b: float):
     def linearize(c):
         return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
 
-    # [FIX 2] 기존 linearize(gl), linearize(bl) → 정의되지 않은 변수를 참조하던
-    # NameError 버그. 인자로 받은 g, b를 넣도록 수정.
     rl, gl, bl = linearize(r), linearize(g), linearize(b)
     X = rl * 0.4124564 + gl * 0.3575761 + bl * 0.1804375
     Y = rl * 0.2126729 + gl * 0.7151522 + bl * 0.0721750
@@ -145,27 +133,96 @@ def validate_palette_schema_and_hex(palette: list) -> bool:
 
 # ------------------------------------------------------------------------------
 # 3. 핵심 비즈니스 로직 (요청 처리 → 응답 payload 생성까지)
-#    HTTP 프레임워크와 무관하게 동작하도록 순수 로직만 분리.
 # ------------------------------------------------------------------------------
 def process_request(data: dict):
     """
     요청 데이터(dict)를 받아 (status_code, response_dict) 튜플을 반환합니다.
     """
+    # ==========================================================================
+    # [신규 분기] 컨시어지 문의 폼 접수 처리
+    # - Vercel 단일 엔드포인트(/api/analyze)를 공유하여 라우트 유실(404)을 원천 차단합니다.
+    # - AI 추론을 거치지 않고 바로 Resend를 통해 Concierge@mac.ai.kr(네이버웍스)로 발송합니다.
+    # ==========================================================================
+    if data.get("type") == "concierge_inquiry":
+        client_name = str(data.get("client_name", "익명")).strip()
+        client_contact = str(data.get("client_contact", "")).strip()
+        subject_type = str(data.get("subject", "일반 문의")).strip()
+        message = str(data.get("message", "")).strip()
+
+        # 필수 입력값 검증
+        if not client_contact or not message:
+            return 400, {"status": "error", "error": "회신 연락처와 문의 내용을 입력해 주세요."}
+
+        # 문의 유형 텍스트 매핑 가독성 처리
+        subject_map = {
+            "artwork": "Acquisition of Curated Artwork (전시작 원화 소장)",
+            "bespoke": "Bespoke Memory Color Commission (1:1 맞춤 조색 의뢰)",
+            "partnership": "Confidential Partnership & Curation (비공개 협업 및 전시 대관)",
+            "viewing": "Private Salon Viewing (프라이빗 뷰잉 세션 예약)"
+        }
+        subject_title = subject_map.get(subject_type, subject_type)
+
+        # 네이버웍스 메일함으로 전달될 우아한 미니멀 HTML 서식 생성
+        inquiry_html = f"""
+        <div style="max-width: 620px; margin: 20px auto; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Pretendard', sans-serif; color: #2b2725; line-height: 1.7; border: 1px solid #eae6e1; border-radius: 12px; overflow: hidden; background: #ffffff;">
+          <div style="background: #3a3430; padding: 24px 32px; color: #f7f6f4;">
+            <p style="margin: 0; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: #c4baa9;">MaC Architecture of Memory &amp; Color</p>
+            <h2 style="margin: 6px 0 0 0; font-size: 20px; font-weight: 700; letter-spacing: -0.01em; color: #ffffff;">프라이빗 컨시어지 문의가 접수되었습니다</h2>
+          </div>
+          <div style="padding: 32px;">
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
+              <tr style="border-bottom: 1px solid #f0ede8;">
+                <td style="padding: 12px 0; width: 120px; font-size: 12.5px; font-weight: 700; color: #8c827a; letter-spacing: 0.1em; text-transform: uppercase;">CLIENT NAME</td>
+                <td style="padding: 12px 0; font-size: 15px; font-weight: 600; color: #1c1917;">{client_name}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #f0ede8;">
+                <td style="padding: 12px 0; font-size: 12.5px; font-weight: 700; color: #8c827a; letter-spacing: 0.1em; text-transform: uppercase;">CONTACT INFO</td>
+                <td style="padding: 12px 0; font-size: 15px; font-weight: 600; color: #8c7042;">{client_contact}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #f0ede8;">
+                <td style="padding: 12px 0; font-size: 12.5px; font-weight: 700; color: #8c827a; letter-spacing: 0.1em; text-transform: uppercase;">REQUEST TYPE</td>
+                <td style="padding: 12px 0; font-size: 14px; font-weight: 600; color: #383330;">{subject_title}</td>
+              </tr>
+            </table>
+
+            <p style="font-size: 12px; font-weight: 700; color: #8c827a; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px;">PRIVATE NOTE</p>
+            <div style="background: #faf8f5; border-left: 3.5px solid #8c7042; padding: 18px 20px; border-radius: 4px; font-size: 14.5px; color: #383330; line-height: 1.8; white-space: pre-wrap;">{message}</div>
+
+            <div style="margin-top: 36px; padding-top: 20px; border-top: 1px solid #eae6e1; font-size: 11.5px; color: #a39c94; text-align: center;">
+              본 메일은 MaC 웹사이트 Color Concierge 데스크에서 실시간 자동 발송되었습니다.
+            </div>
+          </div>
+        </div>
+        """
+
+        # Resend를 사용하여 관리자 네이버웍스 메일함(Concierge@mac.ai.kr)으로 전달
+        try:
+            if RESEND_API_KEY:
+                resend.Emails.send({
+                    "from": "MaC Concierge <curator@mac.ai.kr>",
+                    "to": ["Concierge@mac.ai.kr"],
+                    "subject": f"[MaC Desk] {client_name}님의 프라이빗 문의",
+                    "html": inquiry_html,
+                })
+            return 200, {"status": "success", "message": "문의가 성공적으로 전달되었습니다."}
+        except Exception as send_err:
+            print(f"[Concierge Mail Send Error]: {send_err}")
+            return 500, {"status": "error", "error": "문의 메일 전송 중 통신 오류가 발생했습니다."}
+
+    # ==========================================================================
+    # [기존 로직] 색채 표본 분석 및 발송 처리 (불변)
+    # ==========================================================================
     memory = str(data.get("memory", "")).strip()
     email = str(data.get("email", "")).strip()
 
-    # --------------------------------------------------------------------------
     # [예외 기준 1] 입력 유효성 검증 실패 (HTTP 400 Bad Request)
-    # --------------------------------------------------------------------------
     if not memory or len(memory) < 10:
         return 400, {"error": "기억 문장을 최소 10자 이상 구체적으로 입력해 주세요."}
 
     if not email or not EMAIL_REGEX.match(email):
         return 400, {"error": "올바른 이메일 주소 형식을 입력해 주세요."}
 
-    # --------------------------------------------------------------------------
     # [예외 기준 2 & 3] AI 추론/JSON 파싱 및 HEX 검증 (실패 시 최대 1회 즉시 재호출)
-    # --------------------------------------------------------------------------
     system_prompt = build_system_prompt()
     full_prompt = f"{system_prompt}\n\n[입력된 사용자 기억 사연]\n\"{memory}\""
 
@@ -192,16 +249,12 @@ def process_request(data: dict):
 
     memory_summary = result_json.get("memory_summary", memory)
 
-    # --------------------------------------------------------------------------
     # 면적비 가중치 기반 고유 암호 해시(MaC-L.C.H) 산출
-    # --------------------------------------------------------------------------
     specimen_hash = compute_weighted_lch_hash(palette)
     result_json["specimen_hash"] = specimen_hash
     result_json["specimen_code"] = specimen_hash
 
-    # --------------------------------------------------------------------------
     # emailTemplate.html 바인딩
-    # --------------------------------------------------------------------------
     template_path = Path(__file__).resolve().parent.parent / "emailTemplate.html"
     rendered_html = ""
     if template_path.exists():
@@ -230,9 +283,7 @@ def process_request(data: dict):
         except Exception as t_err:
             print(f"[Template Render Warning]: {t_err}")
 
-    # --------------------------------------------------------------------------
     # [예외 기준 4] Resend 트랜잭션 메일 발송 처리 (Non-blocking)
-    # --------------------------------------------------------------------------
     email_sent = True
     email_error_log = None
 
@@ -268,9 +319,7 @@ def process_request(data: dict):
 
 
 # ------------------------------------------------------------------------------
-# 4. Vercel Serverless 진입점
-#    [FIX 1] Vercel Python 런타임이 실제로 인식하는 BaseHTTPRequestHandler
-#    클래스 형태로 구현. 클래스 이름은 반드시 'handler'여야 합니다.
+# 4. Vercel Serverless 진입점 (BaseHTTPRequestHandler)
 # ------------------------------------------------------------------------------
 class handler(BaseHTTPRequestHandler):
 

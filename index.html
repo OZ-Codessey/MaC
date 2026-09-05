@@ -10,7 +10,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     /* --------------------------------------------------------------------------
@@ -20,6 +20,10 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     :root {
@@ -35,6 +39,7 @@
       --text-light: #a39c94;
       --line-subtle: #eae6e1;
       --font-arch: "Plus Jakarta Sans", "Pretendard", -apple-system, sans-serif;
+      --font-serif: "Cormorant Garamond", "Didot", "Bodoni MT", serif;
     }
 
     body {
@@ -76,14 +81,16 @@
     }
 
     .brand-logo span {
-      font-size: 12.5px;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 14.5px;
       font-weight: 400;
-      color: var(--text-muted);
+      color: var(--gold-primary);
       letter-spacing: 0.02em;
     }
 
     .brand-logo span em {
-      font-style: normal;
+      font-style: italic;
       font-weight: 400;
       color: inherit;
       margin: 0 1px;
@@ -106,7 +113,7 @@
     }
 
     .nav-item a:hover {
-      color: var(--text-muted);
+      color: var(--gold-primary);
     }
 
     .mobile-menu-btn {
@@ -172,7 +179,7 @@
     }
 
     /* --------------------------------------------------------------------------
-       [Mobile Fullscreen Minimalist Drawer - 세련된 원본 복원]
+       [Mobile Fullscreen Minimalist Drawer]
        -------------------------------------------------------------------------- */
     .mobile-drawer {
       display: none;
@@ -233,7 +240,7 @@
 
     .mobile-nav-item a {
       font-family: var(--font-arch);
-      font-size: 23px;
+      font-size: 22px;
       font-weight: 350;
       letter-spacing: -0.01em;
       color: #383431;
@@ -278,11 +285,11 @@
     }
 
     .drawer-footer {
-      font-size: 11px;
-      font-family: var(--font-arch);
-      color: var(--text-light);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 13.5px;
+      color: var(--gold-primary);
+      letter-spacing: 0.04em;
       text-align: center;
     }
 
@@ -444,7 +451,7 @@
     }
 
     .headline-main {
-      font-size: 36px;
+      font-size: clamp(24px, 4vw, 36px);
       font-weight: 600;
       color: var(--text-soft-dark);
       letter-spacing: -0.02em;
@@ -460,7 +467,7 @@
     }
 
     .statement-body {
-      font-size: 16.5px;
+      font-size: clamp(14.5px, 2vw, 16.5px);
       color: var(--gold-dark-charcoal);
       line-height: 1.9;
       font-weight: 450;
@@ -639,7 +646,7 @@
     }
 
     /* --------------------------------------------------------------------------
-       [Universal Minimalist Modals (Memory, Concierge, Astral, Reference Mood)]
+       [Universal Minimalist Modals (Memory, Astral, Reference Mood)]
        -------------------------------------------------------------------------- */
     .arch-modal-overlay {
       display: none;
@@ -684,15 +691,13 @@
     }
 
     #memoryModal.arch-modal-overlay,
-    #astralModal.arch-modal-overlay,
-    #conciergeModal.arch-modal-overlay {
+    #astralModal.arch-modal-overlay {
       align-items: flex-start;
       padding-top: 8vh;
     }
 
     #memoryModal .arch-modal-window,
-    #astralModal .arch-modal-window,
-    #conciergeModal .arch-modal-window {
+    #astralModal .arch-modal-window {
       max-width: 500px;
       margin: 0 auto;
     }
@@ -725,8 +730,10 @@
     }
 
     .modal-subtitle {
-      font-size: 13.5px;
-      color: var(--text-muted);
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 14px;
+      color: var(--gold-primary);
       letter-spacing: 0.02em;
     }
 
@@ -774,7 +781,7 @@
 
     .modal-narrative-box {
       background: #faf9f7;
-      border-left: 2.5px solid var(--text-dark);
+      border-left: 2.5px solid var(--gold-primary);
       padding: 16px 18px;
       font-size: 13.5px;
       color: var(--text-body);
@@ -1129,8 +1136,663 @@
     }
 
     /* --------------------------------------------------------------------------
-       [Responsive Media Queries]
+       [섹션 4 & 5: 글래스모피즘 & 우아한 서식]
        -------------------------------------------------------------------------- */
+    .archive-section,
+    .concierge-section {
+      width: 100%;
+      max-width: 1160px;
+      margin: 70px auto 50px auto;
+      padding: 0 24px;
+      scroll-margin-top: 80px;
+    }
+
+    .concierge-section {
+      margin-bottom: 90px;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      border-radius: 32px;
+      padding: 60px 44px 64px 44px;
+      box-shadow: 0 20px 50px rgba(43, 39, 37, 0.04);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.32em;
+      color: #8c827a;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .tag-highlight {
+      background: rgba(162, 196, 237, 0.55);
+      color: #3b5980;
+      padding: 2px 6px 2px 8px;
+      border-radius: 3px;
+      font-weight: 700;
+      display: inline-block;
+      line-height: 1.3;
+    }
+
+    .section-title {
+      font-size: clamp(24px, 4.5vw, 38px);
+      font-weight: 800;
+      color: #8a8275;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      line-height: 1.25;
+    }
+
+    .gallery-grid-5col {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+    }
+
+    .gallery-card {
+      position: relative;
+      background: #ffffff;
+      border: 1px solid rgba(140, 130, 122, 0.16);
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 16px rgba(43, 39, 37, 0.04);
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+                  box-shadow 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+                  border-color 0.3s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-5px) scale(1.018);
+      border-color: rgba(255, 255, 255, 1);
+      box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.95),
+                  0 20px 40px rgba(43, 39, 37, 0.16),
+                  0 0 35px rgba(255, 245, 220, 1),
+                  0 0 70px rgba(255, 215, 150, 0.75),
+                  0 0 100px rgba(255, 190, 110, 0.35);
+      z-index: 10;
+    }
+
+    .floating-frame-outer {
+      padding: 18px 18px 6px 18px;
+      background: #fdfcfb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .floating-canvas-viewport {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #faf8f5;
+      display: block;
+      overflow: hidden;
+      border-radius: 12px;
+      border: none;
+      box-shadow: 0 8px 20px -3px rgba(90, 75, 60, 0.18),
+                  0 3px 8px -2px rgba(90, 75, 60, 0.12);
+      transition: all 0.4s ease;
+    }
+
+    .floating-canvas-viewport svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .gallery-card:hover .floating-canvas-viewport svg {
+      transform: scale(1.04);
+    }
+
+    .card-meta {
+      padding: 16px 12px 18px 12px;
+      background: #ffffff;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      justify-content: flex-start;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #2b2725;
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+      text-align: left;
+      width: 100%;
+    }
+
+    .badge-chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 4px;
+      width: 100%;
+    }
+
+    .badge-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 10px;
+      font-weight: 600;
+      color: #3b3632;
+      background: #f7f5f2;
+      border: 1px solid rgba(140, 130, 122, 0.24);
+      padding: 3px 6px;
+      border-radius: 5px;
+    }
+
+    .badge-chip .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    /* --------------------------------------------------------------------------
+       [모달 팝업: 아카이브 카드 상세 뷰어]
+       -------------------------------------------------------------------------- */
+    .memory-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(43, 39, 37, 0.6);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .memory-modal-overlay.is-active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .memory-modal-window {
+      position: relative;
+      background: #faf8f5;
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      border-radius: 28px;
+      max-width: 480px;
+      width: 100%;
+      overflow: hidden;
+      box-shadow: 0 32px 64px rgba(0, 0, 0, 0.28);
+      animation: modalPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      padding: 36px 24px 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    @keyframes modalPop {
+      from { transform: scale(0.92) translateY(12px); opacity: 0; }
+      to { transform: scale(1) translateY(0); opacity: 1; }
+    }
+
+    .gallery-hanger-btn {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      z-index: 10;
+      padding: 4px 16px;
+      transition: transform 0.2s ease, opacity 0.2s;
+    }
+
+    .hanger-pin {
+      width: 28px;
+      height: 4px;
+      background: #8c827a;
+      border-radius: 3px;
+      transition: background-color 0.2s, width 0.2s;
+    }
+
+    .hanger-wire {
+      width: 1.5px;
+      height: 8px;
+      background: rgba(140, 130, 122, 0.5);
+      margin-top: 1px;
+    }
+
+    .modal-artwork-frame {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #fdfcfb;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 3.5px solid #d4c5b3;
+      padding: 10px;
+      box-shadow: 0 12px 28px rgba(43, 39, 37, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-artwork-canvas {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #111;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    .modal-artwork-canvas svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .archive-modal-body {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 0 4px;
+      text-align: left;
+      align-items: flex-start;
+    }
+
+    .archive-modal-tag {
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: #8c827a;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .archive-modal-title {
+      font-size: 23px;
+      font-weight: 700;
+      color: #2b2725;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+      text-align: left;
+    }
+
+    .archive-modal-memory-text {
+      font-size: 14.5px;
+      color: #6e6660;
+      line-height: 1.8;
+      font-weight: 400;
+      text-align: left;
+      background: #f7f5f2;
+      padding: 14px 18px;
+      border-radius: 12px;
+      width: 100%;
+    }
+
+    .archive-modal-palette-section {
+      margin-top: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .archive-modal-palette-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      color: #8c827a;
+      text-transform: uppercase;
+    }
+
+    .archive-modal-palette-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: 8px;
+    }
+
+    .archive-modal-palette-row .badge-chip {
+      font-size: 12px;
+      padding: 5px 12px;
+      border-radius: 6px;
+      background: #f0ede8;
+      border: 1px solid rgba(140, 130, 122, 0.3);
+      color: #2b2725;
+    }
+
+    .archive-modal-palette-row .dot {
+      width: 8px;
+      height: 8px;
+    }
+
+    /* --------------------------------------------------------------------------
+       [섹션: COLOR CONCIERGE & CONTACT (품격 높은 레이아웃)]
+       -------------------------------------------------------------------------- */
+    .concierge-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .concierge-narrative {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .concierge-tag-orig {
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      color: var(--gold-primary);
+      text-transform: uppercase;
+    }
+
+    .concierge-headline-orig {
+      font-size: clamp(20px, 3.2vw, 25px);
+      font-weight: 750;
+      color: #2b2725;
+      letter-spacing: -0.015em;
+      line-height: 1.45;
+    }
+
+    .concierge-desc-orig {
+      font-size: clamp(13.5px, 1.8vw, 14.5px);
+      color: #6e6660;
+      line-height: 1.85;
+      font-weight: 400;
+    }
+
+    .contact-minimal-list {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      border-top: 1px solid rgba(140, 130, 122, 0.18);
+      padding-top: 22px;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: baseline;
+      font-size: 14.5px;
+      line-height: 1.5;
+    }
+
+    .contact-row .label {
+      width: 95px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #8c827a;
+      text-transform: uppercase;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .contact-row .val {
+      font-size: 15px;
+      font-weight: 600;
+      color: #2b2725;
+      letter-spacing: 0.01em;
+    }
+
+    .concierge-form {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      padding-top: 4px;
+      position: relative;
+    }
+
+    .field-wrap {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field-label {
+      font-size: 12.5px;
+      font-weight: 650;
+      letter-spacing: 0.16em;
+      color: #786b5c;
+      text-transform: uppercase;
+    }
+
+    .field-input,
+    .field-select,
+    .field-textarea {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid rgba(140, 130, 122, 0.22);
+      border-bottom: 2px solid rgba(140, 130, 122, 0.45);
+      border-radius: 8px 8px 0 0;
+      padding: 12px 14px;
+      font-size: 15px;
+      font-weight: 450;
+      color: #2b2725;
+      font-family: inherit;
+      outline: none;
+      box-shadow: inset 0 2px 4px rgba(43, 39, 37, 0.02), 0 2px 6px rgba(0, 0, 0, 0.02);
+      transition: all 0.3s ease;
+    }
+
+    .field-input::placeholder,
+    .field-textarea::placeholder {
+      color: #9c948d;
+      font-weight: 400;
+      font-size: 13.5px;
+    }
+
+    .field-input:focus,
+    .field-select:focus,
+    .field-textarea:focus {
+      background: rgba(255, 255, 255, 0.92);
+      border-bottom-color: var(--gold-primary);
+      box-shadow: inset 0 2px 4px rgba(43, 39, 37, 0.03), 0 4px 12px rgba(140, 112, 66, 0.08);
+    }
+
+    .field-invalid {
+      border-bottom-color: #c45b38 !important;
+      background: rgba(255, 245, 240, 0.85) !important;
+    }
+
+    .field-tooltip-bubble {
+      position: absolute;
+      top: calc(100% + 7px);
+      left: 6px;
+      z-index: 100;
+      background: #fdfaf7;
+      color: #8c3b20;
+      border: 1px solid rgba(196, 91, 56, 0.35);
+      box-shadow: 0 6px 16px rgba(184, 93, 56, 0.12), 0 2px 5px rgba(0, 0, 0, 0.04);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      display: none;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      animation: tooltipSlide 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .field-tooltip-bubble::before {
+      content: "";
+      position: absolute;
+      top: -5px;
+      left: 14px;
+      width: 8px;
+      height: 8px;
+      background: #fdfaf7;
+      border-left: 1px solid rgba(196, 91, 56, 0.35);
+      border-top: 1px solid rgba(196, 91, 56, 0.35);
+      transform: rotate(45deg);
+    }
+
+    .field-tooltip-bubble.is-visible {
+      display: inline-flex;
+    }
+
+    @keyframes tooltipSlide {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .field-select {
+      font-size: 14.5px;
+      font-weight: 450;
+      color: #3b3530;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      -webkit-appearance: none;
+      appearance: none;
+      padding-right: 32px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%2378716c' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+    }
+
+    .field-select:invalid,
+    .field-select option[value=""] {
+      color: #9c948d;
+      font-weight: 400;
+    }
+
+    .field-select option {
+      font-size: 14px;
+      font-weight: 450;
+      color: #2b2725;
+      background: #faf8f5;
+      padding: 10px 14px;
+    }
+
+    .field-textarea {
+      resize: none;
+      min-height: 84px;
+      line-height: 1.65;
+    }
+
+    .submit-anchor-wrap {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-top: 4px;
+      gap: 10px;
+    }
+
+    /* 알림 바: 품격 있는 웜 스톤 골드 & 샴페인 배경 서식 */
+    .btn-notify-bar {
+      width: 100%;
+      background: rgba(253, 251, 248, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(140, 112, 66, 0.22);
+      border-radius: 8px;
+      padding: 12px 18px;
+      box-shadow: 0 4px 16px rgba(43, 39, 37, 0.05);
+      display: none;
+      align-items: center;
+      transition: all 0.3s ease;
+      animation: notifySlideUp 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .btn-notify-bar.is-active {
+      display: flex;
+    }
+
+    .btn-notify-bar.status-connecting {
+      border-left: 3.5px solid var(--gold-primary);
+      background: rgba(253, 251, 248, 0.96);
+    }
+
+    .btn-notify-bar.status-failed {
+      border-left: 3.5px solid #c45b38;
+      background: rgba(255, 246, 243, 0.97);
+    }
+
+    .btn-notify-text {
+      font-size: 12.5px;
+      font-weight: 550;
+      color: #383330;
+      letter-spacing: -0.01em;
+      line-height: 1.5;
+      white-space: pre-line;
+    }
+
+    @keyframes notifySlideUp {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .request-btn {
+      align-self: flex-start;
+      padding: 14px 42px;
+      background: #2b2725;
+      color: #f7f6f4;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 40px;
+      font-size: 12.5px;
+      font-weight: 650;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(43, 39, 37, 0.14);
+      transition: all 0.25s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .request-btn:hover {
+      background: #403a37;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(43, 39, 37, 0.2);
+    }
+
+    .request-btn:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    /* --------------------------------------------------------------------------
+       [Responsive Media Queries: 모바일 뷰어 맞춤 최적화]
+       -------------------------------------------------------------------------- */
+    @media (max-width: 1024px) {
+      .gallery-grid-5col {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
     @media (max-width: 960px) {
       .arch-header {
         padding: 0 28px;
@@ -1156,60 +1818,81 @@
       .section-main-title {
         font-size: 22px;
       }
-      .headline-main {
-        font-size: 30px;
+      .section-header {
+        margin-bottom: 38px;
+      }
+      .concierge-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .request-btn {
+        width: 100%;
+        text-align: center;
       }
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 768px) {
+      .glass-card {
+        padding: 36px 18px;
+        border-radius: 24px;
+      }
+      .section-tag { font-size: 11px; }
+      .contact-row { flex-direction: column; align-items: flex-start; gap: 2px; }
+      .contact-row .label { width: 100%; font-size: 11.5px; }
+      .gallery-grid-5col {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
       .arch-header {
-        padding: 0 20px;
+        padding: 0 18px;
       }
       .arch-hero-banner {
-        height: 38vh;
+        height: 35vh;
+        min-height: 280px;
       }
       .banner-overlay-caption {
-        right: 18px;
-        bottom: 14px;
-        font-size: 10.5px;
+        right: 14px;
+        bottom: 12px;
+        font-size: 10px;
+        padding: 6px 12px;
       }
-
       .headline-lead {
-        font-size: 14.5px;
+        font-size: 14px;
       }
       .lead-baseline-tail {
-        width: 26px;
+        width: 22px;
         margin-bottom: 2px;
       }
-      .headline-main {
-        font-size: 24px;
-      }
-      .statement-body {
-        font-size: 15px;
-      }
-
       .submit-wrap {
         flex-direction: column;
         align-items: flex-start;
-        gap: 14px;
+        gap: 12px;
       }
       .submit-arch-btn {
         width: 100%;
         text-align: center;
       }
       .arch-modal-window {
-        padding: 36px 20px;
-      }
-      #memoryModal.arch-modal-overlay,
-      #astralModal.arch-modal-overlay,
-      #conciergeModal.arch-modal-overlay {
-        padding-top: 5vh;
+        padding: 32px 18px;
       }
       .easel-artwork-img {
-        max-height: 400px;
+        max-height: 360px;
       }
       .modal-palette-grid {
         grid-template-columns: 1fr;
+      }
+      .concierge-headline-orig {
+        font-size: 19.5px;
+        line-height: 1.4;
+      }
+      .btn-notify-bar {
+        padding: 10px 14px;
+      }
+      .btn-notify-text {
+        font-size: 12px;
       }
     }
   </style>
@@ -1226,7 +1909,7 @@
     <ul class="nav-menu">
       <li class="nav-item"><a id="navMemory">Memory</a></li>
       <li class="nav-item"><a href="#archive">archive</a></li>
-      <li class="nav-item"><a id="navConcierge">Concierge</a></li>
+      <li class="nav-item"><a href="#concierge">Concierge</a></li>
       <li class="nav-item"><a id="navAstral">Astral</a></li>
     </ul>
 
@@ -1237,7 +1920,7 @@
     </button>
   </header>
 
-  <!-- ================= MOBILE FULLSCREEN DRAWER (세련된 원본 마크업 복원) ================= -->
+  <!-- ================= MOBILE FULLSCREEN DRAWER ================= -->
   <div class="mobile-drawer" id="mobileDrawer">
     <div class="drawer-top-bar">
       <button class="gallery-close-btn" id="mobileDrawerCloseBtn" aria-label="메뉴 닫기">Close</button>
@@ -1258,7 +1941,7 @@
           </a>
         </li>
         <li class="mobile-nav-item">
-          <a class="mobile-nav-link" id="mobileNavConcierge">
+          <a class="mobile-nav-link" href="#concierge">
             <span><span class="brand-prefix">C</span>oncierge</span>
             <span class="nav-arrow">↗</span>
           </a>
@@ -1272,15 +1955,16 @@
       </ul>
     </div>
 
+    <!-- [수정] 통일된 우아한 브랜드 슬로건 표기 -->
     <div class="drawer-footer">
-      Architecture of Memory &amp; Color
+      MaC | Memory and Color
     </div>
   </div>
 
   <!-- ================= WIDE ARCHITECTURAL HERO BANNER ================= -->
   <section class="arch-hero-banner" id="heroBanner" title="클릭하여 레퍼런스 원화 확대 감상">
     <div class="banner-img-wrap">
-      <img src="images/generReference.png" alt="Architectural Color Reference" onerror="this.src='https://picsum.photos/1920/1080?grayscale'" />
+      <img src="images/generReference.png" alt="Color Reference" onerror="this.src='https://picsum.photos/1920/1080?grayscale'" />
     </div>
     <div class="banner-overlay-caption">Reference No. 01 / View Artwork ↗</div>
   </section>
@@ -1291,9 +1975,9 @@
     <div class="left-column">
       <h1 class="section-main-title">About Color</h1>
       <div class="social-links">
-        <a href="#" class="social-btn" aria-label="Archive">Ar</a>
+        <a href="#archive" class="social-btn" aria-label="Archive">Ar</a>
         <a href="#" class="social-btn" aria-label="Instagram">In</a>
-        <a href="mailto:MaC@mac.ai.kr" class="social-btn" aria-label="Mail">@</a>
+        <a href="#concierge" class="social-btn" aria-label="Mail">@</a>
       </div>
     </div>
 
@@ -1341,6 +2025,325 @@
 
   </main>
 
+  <!-- ================= SECTION 4 : MEMORY ARCHIVE ================= -->
+  <section class="archive-section" id="archive">
+    <div class="glass-card">
+      
+      <header class="section-header">
+        <span class="section-tag">
+          CURATED <span class="tag-highlight">EXHIBITION</span>
+        </span>
+        <h2 class="section-title">MEMORY ARCHIVE</h2>
+      </header>
+
+      <div class="gallery-grid-5col" id="galleryGrid">
+        <article class="gallery-card" data-id="0">
+          <div class="floating-frame-outer">
+            <div class="floating-canvas-viewport">
+              <svg viewBox="90 104 282 282" preserveAspectRatio="xMidYMid slice">
+                <image href="images/gallery.png" width="2048" height="1152"></image>
+              </svg>
+            </div>
+          </div>
+          <div class="card-meta">
+            <h4 class="card-title">초여름 수국 골목</h4>
+            <div class="badge-chip-group">
+              <span class="badge-chip"><span class="dot" style="background:#7CA5B8"></span>#7CA5B8</span>
+              <span class="badge-chip"><span class="dot" style="background:#B497D6"></span>#B497D6</span>
+              <span class="badge-chip"><span class="dot" style="background:#9BC495"></span>#9BC495</span>
+              <span class="badge-chip"><span class="dot" style="background:#C4D4BA"></span>#C4D4BA</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="gallery-card" data-id="1">
+          <div class="floating-frame-outer">
+            <div class="floating-canvas-viewport">
+              <svg viewBox="485 104 282 282" preserveAspectRatio="xMidYMid slice">
+                <image href="images/gallery.png" width="2048" height="1152"></image>
+              </svg>
+            </div>
+          </div>
+          <div class="card-meta">
+            <h4 class="card-title">어린 시절 골목길 가로등</h4>
+            <div class="badge-chip-group">
+              <span class="badge-chip"><span class="dot" style="background:#FFB703"></span>#FFB703</span>
+              <span class="badge-chip"><span class="dot" style="background:#023047"></span>#023047</span>
+              <span class="badge-chip"><span class="dot" style="background:#FB8500"></span>#FB8500</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="gallery-card" data-id="2">
+          <div class="floating-frame-outer">
+            <div class="floating-canvas-viewport">
+              <svg viewBox="880 104 282 282" preserveAspectRatio="xMidYMid slice">
+                <image href="images/gallery.png" width="2048" height="1152"></image>
+              </svg>
+            </div>
+          </div>
+          <div class="card-meta">
+            <h4 class="card-title">가을날 단풍 운동장</h4>
+            <div class="badge-chip-group">
+              <span class="badge-chip"><span class="dot" style="background:#C85D38"></span>#C85D38</span>
+              <span class="badge-chip"><span class="dot" style="background:#DAB049"></span>#DAB049</span>
+              <span class="badge-chip"><span class="dot" style="background:#4DA7E8"></span>#4DA7E8</span>
+              <span class="badge-chip"><span class="dot" style="background:#9B381E"></span>#9B381E</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="gallery-card" data-id="3">
+          <div class="floating-frame-outer">
+            <div class="floating-canvas-viewport">
+              <svg viewBox="1275 104 282 282" preserveAspectRatio="xMidYMid slice">
+                <image href="images/gallery.png" width="2048" height="1152"></image>
+              </svg>
+            </div>
+          </div>
+          <div class="card-meta">
+            <h4 class="card-title">여름 바닷가</h4>
+            <div class="badge-chip-group">
+              <span class="badge-chip"><span class="dot" style="background:#E3C594"></span>#E3C594</span>
+              <span class="badge-chip"><span class="dot" style="background:#48CAE4"></span>#48CAE4</span>
+              <span class="badge-chip"><span class="dot" style="background:#F8F9FA"></span>#F8F9FA</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="gallery-card" data-id="4">
+          <div class="floating-frame-outer">
+            <div class="floating-canvas-viewport">
+              <svg viewBox="1670 104 282 282" preserveAspectRatio="xMidYMid slice">
+                <image href="images/gallery.png" width="2048" height="1152"></image>
+              </svg>
+            </div>
+          </div>
+          <div class="card-meta">
+            <h4 class="card-title">비 오는 날 창밖</h4>
+            <div class="badge-chip-group">
+              <span class="badge-chip"><span class="dot" style="background:#6C757D"></span>#6C757D</span>
+              <span class="badge-chip"><span class="dot" style="background:#4682B4"></span>#4682B4</span>
+              <span class="badge-chip"><span class="dot" style="background:#8C7A6B"></span>#8C7A6B</span>
+              <span class="badge-chip"><span class="dot" style="background:#34495E"></span>#34495E</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="gallery-card" data-id="5">
+          <div class="floating-frame-outer">
+            <div class="floating-canvas-viewport">
+              <svg viewBox="90 608 282 282" preserveAspectRatio="xMidYMid slice">
+                <image href="images/gallery.png" width="2048" height="1152"></image>
+              </svg>
+            </div>
+          </div>
+          <div class="card-meta">
+            <h4 class="card-title">봄날 벚꽃길</h4>
+            <div class="badge-chip-group">
+              <span class="badge-chip"><span class="dot" style="background:#FFC8DD"></span>#FFC8DD</span>
+              <span class="badge-chip"><span class="dot" style="background:#F8F9FA"></span>#F8F9FA</span>
+              <span class="badge-chip"><span class="dot" style="background:#D4A373"></span>#D4A373</span>
+              <span class="badge-chip"><span class="dot" style="background:#FFAFCC"></span>#FFAFCC</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="gallery-card" data-id="6">
+          <div class="floating-frame-outer">
+            <div class="floating-canvas-viewport">
+              <svg viewBox="485 608 282 282" preserveAspectRatio="xMidYMid slice">
+                <image href="images/gallery.png" width="2048" height="1152"></image>
+              </svg>
+            </div>
+          </div>
+          <div class="card-meta">
+            <h4 class="card-title">겨울날 아침 햇살</h4>
+            <div class="badge-chip-group">
+              <span class="badge-chip"><span class="dot" style="background:#FDF0D5"></span>#FDF0D5</span>
+              <span class="badge-chip"><span class="dot" style="background:#E9D8A6"></span>#E9D8A6</span>
+              <span class="badge-chip"><span class="dot" style="background:#EE9B00"></span>#EE9B00</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="gallery-card" data-id="7">
+          <div class="floating-frame-outer">
+            <div class="floating-canvas-viewport">
+              <svg viewBox="880 608 282 282" preserveAspectRatio="xMidYMid slice">
+                <image href="images/gallery.png" width="2048" height="1152"></image>
+              </svg>
+            </div>
+          </div>
+          <div class="card-meta">
+            <h4 class="card-title">노을 지는 제방길</h4>
+            <div class="badge-chip-group">
+              <span class="badge-chip"><span class="dot" style="background:#F4A261"></span>#F4A261</span>
+              <span class="badge-chip"><span class="dot" style="background:#E76F51"></span>#E76F51</span>
+              <span class="badge-chip"><span class="dot" style="background:#264653"></span>#264653</span>
+              <span class="badge-chip"><span class="dot" style="background:#E9C46A"></span>#E9C46A</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="gallery-card" data-id="8">
+          <div class="floating-frame-outer">
+            <div class="floating-canvas-viewport">
+              <svg viewBox="1275 608 282 282" preserveAspectRatio="xMidYMid slice">
+                <image href="images/gallery.png" width="2048" height="1152"></image>
+              </svg>
+            </div>
+          </div>
+          <div class="card-meta">
+            <h4 class="card-title">할머니 댁 수박</h4>
+            <div class="badge-chip-group">
+              <span class="badge-chip"><span class="dot" style="background:#E63946"></span>#E63946</span>
+              <span class="badge-chip"><span class="dot" style="background:#2A9D8F"></span>#2A9D8F</span>
+              <span class="badge-chip"><span class="dot" style="background:#A98467"></span>#A98467</span>
+              <span class="badge-chip"><span class="dot" style="background:#1D3557"></span>#1D3557</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="gallery-card" data-id="9">
+          <div class="floating-frame-outer">
+            <div class="floating-canvas-viewport">
+              <svg viewBox="1670 608 282 282" preserveAspectRatio="xMidYMid slice">
+                <image href="images/gallery.png" width="2048" height="1152"></image>
+              </svg>
+            </div>
+          </div>
+          <div class="card-meta">
+            <h4 class="card-title">늦은 밤 독서실 스탠드</h4>
+            <div class="badge-chip-group">
+              <span class="badge-chip"><span class="dot" style="background:#FFB703"></span>#FFB703</span>
+              <span class="badge-chip"><span class="dot" style="background:#212529"></span>#212529</span>
+              <span class="badge-chip"><span class="dot" style="background:#432818"></span>#432818</span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= 아카이브 카드 클릭 시 상세 모달 (archiveDetailModal) ================= -->
+  <aside id="archiveDetailModal" class="memory-modal-overlay" aria-hidden="true">
+    <div class="memory-modal-window">
+      <div class="gallery-hanger-btn" id="modalHangerBtn" title="갤러리로 돌아가기">
+        <span class="hanger-pin"></span>
+        <span class="hanger-wire"></span>
+      </div>
+      
+      <div class="modal-artwork-frame">
+        <div class="modal-artwork-canvas">
+          <svg id="archiveModalSvg" viewBox="90 104 282 282" preserveAspectRatio="xMidYMid slice">
+            <image href="images/gallery.png" width="2048" height="1152"></image>
+          </svg>
+        </div>
+      </div>
+
+      <div class="archive-modal-body">
+        <div>
+          <span class="archive-modal-tag" id="archiveModalTag">SPECIMEN NO. 01</span>
+          <h3 class="archive-modal-title" id="archiveModalTitle">작품 제목</h3>
+        </div>
+
+        <p class="archive-modal-memory-text" id="archiveModalMemoryText">
+          추억 문구가 들어갑니다.
+        </p>
+
+        <div class="archive-modal-palette-section">
+          <span class="archive-modal-palette-label">EXTRACTED PALETTE</span>
+          <div class="archive-modal-palette-row" id="archiveModalPaletteRow"></div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================= SECTION 5 : COLOR CONCIERGE & CONTACT ================= -->
+  <section class="concierge-section" id="concierge">
+    <div class="glass-card">
+
+      <div class="concierge-grid">
+        <div class="concierge-narrative">
+          <span class="concierge-tag-orig">MaC Concierge</span>
+
+          <h3 class="concierge-headline-orig">
+            당신만의 기억을<br>
+            색채 언어로 조색합니다
+          </h3>
+
+          <p class="concierge-desc-orig">
+            마음에 오래 머물던 순간, 잊히지 않는 장면의 정서를 색채 언어로 기록합니다. 원화 에디션의 프라이빗 소장 및 비스포크 조색 의뢰는 MaC 컨시어지 데스크를 통해 비공개로 조율됩니다.
+          </p>
+
+          <div class="contact-minimal-list">
+            <div class="contact-row">
+              <span class="label">CONTACT</span>
+              <span class="val">Concierge@mac.ai.kr</span>
+            </div>
+            <div class="contact-row">
+              <span class="label">ATELIER</span>
+              <span class="val">Private Salon, Seoul (By Appointment Only)</span>
+            </div>
+          </div>
+        </div>
+
+        <form class="concierge-form" id="conciergeForm" novalidate>
+          <div class="field-wrap">
+            <label class="field-label" for="clientName">CLIENT NAME</label>
+            <input type="text" id="clientName" class="field-input" placeholder="성함 또는 칭호를 남겨주세요" required>
+            <div class="field-tooltip-bubble" id="nameTooltip">이 항목을 입력해 주세요.</div>
+          </div>
+
+          <div class="field-wrap">
+            <label class="field-label" for="clientContact">CONTACT INFO</label>
+            <input type="text" id="clientContact" class="field-input" placeholder="회신받으실 이메일 또는 연락처" required>
+            <div class="field-tooltip-bubble" id="contactTooltip">이 항목을 입력해 주세요.</div>
+          </div>
+
+          <div class="field-wrap">
+            <label class="field-label" for="inquirySubject">NATURE OF REQUEST</label>
+            <select id="inquirySubject" class="field-select" required>
+              <option value="" disabled selected 
+                      data-short="Select Inquiry Type (문의 유형 선택)" 
+                      data-full="Select Inquiry Type (문의 유형 선택)">Select Inquiry Type (문의 유형 선택)</option>
+              <option value="artwork" 
+                      data-short="Curated Artwork - 전시작 원화 소장" 
+                      data-full="Acquisition of Curated Artwork - 전시작 원화 소장">Acquisition of Curated Artwork - 전시작 원화 소장</option>
+              <option value="bespoke" 
+                      data-short="Bespoke Color - 1:1 맞춤 조색 의뢰" 
+                      data-full="Bespoke Memory Color Commission - 1:1 맞춤 조색 의뢰">Bespoke Memory Color Commission - 1:1 맞춤 조색 의뢰</option>
+              <option value="partnership" 
+                      data-short="Partnership - 비공개 협업 및 대관" 
+                      data-full="Confidential Partnership & Curation - 비공개 협업 및 전시 대관">Confidential Partnership & Curation - 비공개 협업 및 전시 대관</option>
+              <option value="viewing" 
+                      data-short="Private Viewing - 살롱 프라이빗 뷰잉" 
+                      data-full="Private Salon Viewing - 프라이빗 뷰잉 세션 예약">Private Salon Viewing - 프라이빗 뷰잉 세션 예약</option>
+            </select>
+            <div class="field-tooltip-bubble" id="subjectTooltip">목록에서 항목을 선택해 주세요.</div>
+          </div>
+
+          <div class="field-wrap">
+            <label class="field-label" for="clientMessage">PRIVATE NOTE</label>
+            <textarea id="clientMessage" class="field-textarea" placeholder="문의를 남겨주세요." required></textarea>
+            <div class="field-tooltip-bubble" id="messageTooltip">이 항목을 입력해 주세요.</div>
+          </div>
+
+          <div class="submit-anchor-wrap">
+            <!-- [상태 안내 바: 웜 골드 톤 & 세련된 품격 유지] -->
+            <aside id="btnNotifyBar" class="btn-notify-bar" role="status" aria-live="polite">
+              <span class="btn-notify-text" id="btnNotifyText"></span>
+            </aside>
+            <button type="submit" class="request-btn" id="conciergeSubmitBtn">SUBMIT PRIVATE REQUEST</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
   <!-- ================= 1ST NAV: MEMORY PHILOSOPHY MODAL ================= -->
   <aside id="memoryModal" class="arch-modal-overlay" aria-hidden="true">
     <div class="arch-modal-window">
@@ -1349,7 +2352,7 @@
       <div class="modal-head-group">
         <span class="modal-badge">Philosophy</span>
         <h3 class="modal-main-title">박제된 시간, 불멸의 색채</h3>
-        <p class="modal-subtitle">Architecture of Memory &amp; Color</p>
+        <p class="modal-subtitle">MaC | Memory and Color</p>
       </div>
 
       <div class="modal-narrative-box">
@@ -1361,7 +2364,7 @@
         MaC은 당신이 지나온 시간을, 한 편의 색채 표본으로 결코 바래지 않을 고유의 암호로 보존합니다.
       </p>
 
-      <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: var(--text-light); text-transform: uppercase; margin-top: 4px;">
+      <div style="font-family: var(--font-serif); font-style: italic; font-size: 13px; color: var(--gold-primary); margin-top: 4px;">
         MaC Curatorial Archive
       </div>
     </div>
@@ -1407,32 +2410,6 @@
     </div>
   </aside>
 
-  <!-- ================= 3RD NAV: CONCIERGE MODAL ================= -->
-  <aside id="conciergeModal" class="arch-modal-overlay" aria-hidden="true">
-    <div class="arch-modal-window">
-      <button class="gallery-close-btn" id="conciergeCloseBtn" aria-label="닫기">Close</button>
-      
-      <div class="modal-head-group">
-        <span class="modal-badge">Client Service</span>
-        <h3 class="modal-main-title">Concierge Desk</h3>
-        <p class="modal-subtitle">Architecture of Memory &amp; Color</p>
-      </div>
-
-      <div class="modal-narrative-box">
-        컬러 아카이빙 문의, 맞춤형 색채 큐레이션 및 협업 제안은 전용 컨시어지 채널을 통해 접수받고 있습니다.
-      </div>
-
-      <div style="padding: 16px 0; border-top: 1px solid var(--line-subtle); border-bottom: 1px solid var(--line-subtle);">
-        <p style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;">Inquiry Email</p>
-        <a href="mailto:concierge@mac.ai.kr" style="font-size: 16px; font-weight: 700; color: var(--gold-primary); text-decoration: none; letter-spacing: 0.02em;">concierge@mac.ai.kr</a>
-      </div>
-
-      <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: var(--text-light); text-transform: uppercase; margin-top: 4px;">
-        MaC Concierge Service
-      </div>
-    </div>
-  </aside>
-
   <!-- ================= 4TH NAV: ASTRAL MODAL ================= -->
   <aside id="astralModal" class="arch-modal-overlay" aria-hidden="true">
     <div class="arch-modal-window">
@@ -1461,24 +2438,20 @@
   <div id="modalBackdrop" class="mac-modal-backdrop hidden" aria-hidden="true">
     <div class="mac-modal">
       
-      <!-- 상단 핸들형 닫기 바 -->
       <div class="modal-close-handle-wrap" onclick="closeDynamicModal()" title="닫기">
         <div class="modal-close-handle-bar"></div>
       </div>
 
-      <!-- Header -->
       <div class="specimen-header">
         <span class="brand">MaC Specimen Archive</span>
         <span id="specimenHash" class="hash-chip">MaC-00.00.000</span>
       </div>
 
       <div class="specimen-body">
-        <!-- Memory Narrative Summary -->
         <div class="summary-box">
           <p id="memorySummary" class="summary-text"></p>
         </div>
 
-        <!-- [면적비 영역] Spectrum Bar -->
         <div class="spectrum-section" id="spectrumSection">
           <div class="spectrum-label">
             <span>Chromatic Balance (Area Ratio)</span>
@@ -1487,10 +2460,8 @@
           <div class="spectrum-bar" id="spectrumBar"></div>
         </div>
 
-        <!-- Specimen List -->
         <div class="specimen-list" id="specimenList"></div>
 
-        <!-- Controls (면적비 유무 비교) -->
         <div class="control-panel">
           <span style="font-size: 11px; color: #78716c;">면적비 유무 비교:</span>
           <button type="button" onclick="toggleRatio()">면적비 토글(ON/OFF)</button>
@@ -1502,20 +2473,20 @@
   <!-- ================= JAVASCRIPT ================= -->
   <script>
     /* -------------------------------------------------------------------------
-       1. Web Audio 사운드 신디사이저 엔진 (사파리 브라우저 무음 차단 해결)
+       1. Web Audio 사운드 신디사이저 엔진 (전역 통합 관리)
        ------------------------------------------------------------------------- */
     let audioCtx = null;
     function getAudioContext() {
       if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) audioCtx = new AudioContextClass();
       }
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume().catch(() => {});
       }
       return audioCtx;
     }
 
-    // [사운드 1] 차르릉~ 맑은 잔향의 튜닝 포크 어쿠스틱 화음 사운드 (볼륨 강화)
     function playArchiveRevealSound() {
       try {
         const ctx = getAudioContext();
@@ -1536,7 +2507,6 @@
       } catch (e) {}
     }
 
-    // [사운드 2] 지니 흡입 느낌의 부드러운 댐퍼 딤 사운드
     function playArchiveCloseSound() {
       try {
         const ctx = getAudioContext();
@@ -1555,7 +2525,6 @@
       } catch (e) {}
     }
 
-    // [사운드 3] 차임벨 어쿠스틱 챠임
     function playChime() {
       try {
         const ctx = getAudioContext();
@@ -1576,7 +2545,6 @@
       } catch (e) {}
     }
 
-    // [사운드 4] 면적비 토글 래칫 사운드
     function playToggleSound(isOn) {
       try {
         const ctx = getAudioContext();
@@ -1597,8 +2565,72 @@
       } catch (e) {}
     }
 
+    function playRecallChimeHover() {
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(2349.3, now);
+        osc.frequency.exponentialRampToValueAtTime(1760.0, now + 0.05);
+        gain.gain.setValueAtTime(0.04, now);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.05);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.052);
+      } catch (e) {}
+    }
+
+    function playMemoryRecallClick() {
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const now = ctx.currentTime;
+        const notes = [1046.5, 1318.5, 1760.0, 2093.0, 2637.0];
+        const delays = [0.0, 0.038, 0.076, 0.114, 0.152];
+        notes.forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, now + delays[idx]);
+          osc.frequency.exponentialRampToValueAtTime(freq * 0.99, now + delays[idx] + 0.18);
+          gain.gain.setValueAtTime(0.075, now + delays[idx]);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + delays[idx] + 0.18);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now + delays[idx]);
+          osc.stop(now + delays[idx] + 0.185);
+        });
+      } catch (e) {}
+    }
+
+    function playWarningChime() {
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const now = ctx.currentTime;
+        const notes = [783.99, 1046.50, 1318.51];
+        const delays = [0.0, 0.045, 0.09];
+        notes.forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now + delays[idx]);
+          gain.gain.setValueAtTime(0.09, now + delays[idx]);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + delays[idx] + 0.22);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now + delays[idx]);
+          osc.stop(now + delays[idx] + 0.23);
+        });
+      } catch (e) {}
+    }
+
     /* -------------------------------------------------------------------------
-       2. 상단 네비게이션 3종 모달 & 배너 제어
+       2. 상단 네비게이션 모달 & 배너 제어
        ------------------------------------------------------------------------- */
     const banner = document.getElementById('heroBanner');
     const archModal = document.getElementById('archModal');
@@ -1623,7 +2655,6 @@
       });
     }
 
-    // Mobile Drawer Controls
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mobileDrawer = document.getElementById('mobileDrawer');
     const mobileDrawerCloseBtn = document.getElementById('mobileDrawerCloseBtn');
@@ -1643,13 +2674,12 @@
 
     mobileNavLinks.forEach(link => {
       link.addEventListener('click', () => {
-        if (link.id !== 'mobileNavAstral' && link.id !== 'mobileNavMemory' && link.id !== 'mobileNavConcierge') {
+        if (link.id !== 'mobileNavAstral' && link.id !== 'mobileNavMemory') {
           closeMobileDrawer();
         }
       });
     });
 
-    // 1st Nav: Memory Modal Controls
     const navMemory = document.getElementById('navMemory');
     const mobileNavMemory = document.getElementById('mobileNavMemory');
     const memoryModal = document.getElementById('memoryModal');
@@ -1676,34 +2706,6 @@
       });
     }
 
-    // 3rd Nav: Concierge Modal Controls
-    const navConcierge = document.getElementById('navConcierge');
-    const mobileNavConcierge = document.getElementById('mobileNavConcierge');
-    const conciergeModal = document.getElementById('conciergeModal');
-    const conciergeCloseBtn = document.getElementById('conciergeCloseBtn');
-
-    function openConciergeModal() {
-      playChime();
-      closeMobileDrawer();
-      conciergeModal.classList.add('is-active');
-    }
-
-    if (navConcierge) navConcierge.addEventListener('click', openConciergeModal);
-    if (mobileNavConcierge) mobileNavConcierge.addEventListener('click', openConciergeModal);
-
-    if (conciergeCloseBtn) {
-      conciergeCloseBtn.addEventListener('click', () => {
-        conciergeModal.classList.remove('is-active');
-      });
-    }
-
-    if (conciergeModal) {
-      conciergeModal.addEventListener('click', (e) => {
-        if (e.target === conciergeModal) conciergeModal.classList.remove('is-active');
-      });
-    }
-
-    // 4th Nav: Astral Modal Controls
     const navAstral = document.getElementById('navAstral');
     const mobileNavAstral = document.getElementById('mobileNavAstral');
     const astralModal = document.getElementById('astralModal');
@@ -1768,20 +2770,316 @@
       }
     }
 
-    // ESC Key 일괄 닫기
+    /* -------------------------------------------------------------------------
+       4. 아카이브 갤러리 10종 데이터 및 카드 팝업 모달 연동 로직
+       ------------------------------------------------------------------------- */
+    const memoryStories = [
+      {
+        title: "초여름 수국 골목",
+        tag: "SPECIMEN NO. 01",
+        viewBox: "90 104 282 282",
+        story: "장마가 오기 직전, 비를 머금은 흙냄새를 맡으며 하굣길 돌담 밑에 활짝 피어난 수국 꽃송이를 가만히 쓰다듬던 축축하고 싱그럽던 오후.",
+        hexes: ["#7CA5B8", "#B497D6", "#9BC495", "#C4D4BA"]
+      },
+      {
+        title: "어린 시절 골목길 가로등",
+        tag: "SPECIMEN NO. 02",
+        viewBox: "485 104 282 282",
+        story: "어둑해진 골목에서 숨바꼭질을 하다 멀리서 들려오는 엄마의 부름에 아쉽게 발걸음을 돌릴 때, 낡은 주황빛으로 우리를 비춰주던 가로등 불빛.",
+        hexes: ["#FFB703", "#023047", "#FB8500"]
+      },
+      {
+        title: "가을날 단풍 운동장",
+        tag: "SPECIMEN NO. 03",
+        viewBox: "880 104 282 282",
+        story: "가을 운동회 날 만국기가 펄럭이던 높고 푸른 하늘 아래, 흙먼지 날리며 달리기를 마치고 플라타너스 붉은 낙엽을 모아 하늘 높이 던지던 날.",
+        hexes: ["#C85D38", "#DAB049", "#4DA7E8", "#9B381E"]
+      },
+      {
+        title: "여름 바닷가",
+        tag: "SPECIMEN NO. 04",
+        viewBox: "1275 104 282 282",
+        story: "발가락 사이로 스며들던 따뜻한 모래와 귓가를 맴돌던 파도소리.",
+        hexes: ["#E3C594", "#48CAE4", "#F8F9FA"]
+      },
+      {
+        title: "비 오는 날 창밖",
+        tag: "SPECIMEN NO. 05",
+        viewBox: "1670 104 282 282",
+        story: "유리창에 맺힌 빗방울을 손끝으로 가만히 잇다가, 라디오에서 흘러나오던 '비처럼 음악처럼' 을 듣던 비오는 어느 오후.",
+        hexes: ["#6C757D", "#4682B4", "#8C7A6B", "#34495E"]
+      },
+      {
+        title: "봄날 벚꽃길",
+        tag: "SPECIMEN NO. 06",
+        viewBox: "90 608 282 282",
+        story: "새 학기 새 책가방을 메고 걷던 등굣길, 봄바람이 훅 불어올 때마다 눈처럼 머리 위로 쏟아져 내리던 연분홍 꽃잎을 두 손 모아 받아내던 설렘.",
+        hexes: ["#FFC8DD", "#F8F9FA", "#D4A373", "#FFAFCC"]
+      },
+      {
+        title: "겨울날 아침 햇살",
+        tag: "SPECIMEN NO. 07",
+        viewBox: "485 608 282 282",
+        story: "유리창에 낀 성에를 하얗게 녹여 밖을 내다보고, 두꺼운 솜이불 속에서 발만 쏙 내민 채 거실 장판 위로 길게 쏟아져 들어오던 햇살을 쬐던 아침.",
+        hexes: ["#FDF0D5", "#E9D8A6", "#EE9B00"]
+      },
+      {
+        title: "노을 지는 제방길",
+        tag: "SPECIMEN NO. 08",
+        viewBox: "880 608 282 282",
+        story: "동생 손을 꼭 잡고 자전거를 끌며 둑길을 걷다 마주친, 강물까지 온통 붉게 물들이며 세상을 따스하게 안아주던 장엄한 저녁노을.",
+        hexes: ["#F4A261", "#E76F51", "#264653", "#E9C46A"]
+      },
+      {
+        title: "할머니 댁 수박",
+        tag: "SPECIMEN NO. 09",
+        viewBox: "1275 608 282 282",
+        story: "시골 할머니 댁 우물물에 차갑게 담가두었던 수박을 쪼개어, 마당에서 시원하게 등목을 하고 평상에 둘러앉아 씨를 뱉으며 깨어먹던 여름날.",
+        hexes: ["#E63946", "#2A9D8F", "#A98467", "#1D3557"]
+      },
+      {
+        title: "늦은 밤 독서실 스탠드",
+        tag: "SPECIMEN NO. 10",
+        viewBox: "1670 608 282 282",
+        story: "칸막이 책상 위 조그만 초록색 스탠드 불빛 아래, 사각거리는 샤프 소리와 함께 차가운 새벽 공기를 마시며 미래를 꿈꾸던 고요한 밤.",
+        hexes: ["#FFB703", "#212529", "#432818"]
+      }
+    ];
+
+    const archiveCards = document.querySelectorAll('.gallery-card');
+    const archiveDetailModal = document.getElementById('archiveDetailModal');
+    const archiveModalSvg = document.getElementById('archiveModalSvg');
+    const archiveModalTag = document.getElementById('archiveModalTag');
+    const archiveModalTitle = document.getElementById('archiveModalTitle');
+    const archiveModalMemoryText = document.getElementById('archiveModalMemoryText');
+    const archiveModalPaletteRow = document.getElementById('archiveModalPaletteRow');
+    const modalHangerBtn = document.getElementById('modalHangerBtn');
+
+    archiveCards.forEach(card => {
+      card.addEventListener('mouseenter', () => playRecallChimeHover());
+
+      card.addEventListener('click', () => {
+        playMemoryRecallClick();
+
+        const idx = parseInt(card.dataset.id, 10);
+        const data = memoryStories[idx];
+        if (!data) return;
+
+        if (archiveModalSvg) archiveModalSvg.setAttribute('viewBox', data.viewBox);
+        if (archiveModalTag) archiveModalTag.textContent = data.tag;
+        if (archiveModalTitle) archiveModalTitle.textContent = data.title;
+        if (archiveModalMemoryText) archiveModalMemoryText.textContent = data.story;
+
+        if (archiveModalPaletteRow) {
+          archiveModalPaletteRow.innerHTML = '';
+          data.hexes.forEach(hex => {
+            const chip = document.createElement('span');
+            chip.className = 'badge-chip';
+            chip.innerHTML = `<span class="dot" style="background-color: ${hex}"></span>${hex}`;
+            archiveModalPaletteRow.appendChild(chip);
+          });
+        }
+
+        if (archiveDetailModal) {
+          archiveDetailModal.classList.add('is-active');
+          archiveDetailModal.setAttribute('aria-hidden', 'false');
+        }
+      });
+    });
+
+    function closeArchiveDetailModal() {
+      if (archiveDetailModal) {
+        archiveDetailModal.classList.remove('is-active');
+        archiveDetailModal.setAttribute('aria-hidden', 'true');
+      }
+    }
+
+    if (modalHangerBtn) modalHangerBtn.addEventListener('click', closeArchiveDetailModal);
+    if (archiveDetailModal) {
+      archiveDetailModal.addEventListener('click', (e) => {
+        if (e.target === archiveDetailModal) closeArchiveDetailModal();
+      });
+    }
+
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         archModal.classList.remove('is-active');
         memoryModal.classList.remove('is-active');
-        conciergeModal.classList.remove('is-active');
         astralModal.classList.remove('is-active');
         closeDynamicModal();
         closeMobileDrawer();
+        closeArchiveDetailModal();
       }
     });
 
     /* -------------------------------------------------------------------------
-       4. 알림 툴팁 제어
+       5. [개선] 컨시어지 폼: 4초 전송 인지 시간 확보, 실시간 API 전송, 5초 자동 소멸
+       ------------------------------------------------------------------------- */
+    const selectElem = document.getElementById('inquirySubject');
+    const updateOptionsByDevice = () => {
+      if (!selectElem) return;
+      const isSmallScreen = window.innerWidth <= 768;
+      Array.from(selectElem.options).forEach(opt => {
+        if (opt.dataset && (opt.dataset.short || opt.dataset.full)) {
+          opt.text = isSmallScreen ? (opt.dataset.short || opt.text) : (opt.dataset.full || opt.text);
+        }
+      });
+    };
+    updateOptionsByDevice();
+    window.addEventListener('resize', updateOptionsByDevice);
+
+    const conciergeForm = document.getElementById('conciergeForm');
+    const conciergeSubmitBtn = document.getElementById('conciergeSubmitBtn');
+    const btnNotifyBar = document.getElementById('btnNotifyBar');
+    const btnNotifyText = document.getElementById('btnNotifyText');
+
+    let tooltipTimer = null;
+    let notifyBarTimer = null;
+
+    function resetFormUIFeedback() {
+      document.querySelectorAll('.field-tooltip-bubble').forEach(t => t.classList.remove('is-visible'));
+      document.querySelectorAll('.field-input, .field-select, .field-textarea').forEach(i => i.classList.remove('field-invalid'));
+    }
+
+    function hideButtonNotification() {
+      if (!btnNotifyBar) return;
+      btnNotifyBar.classList.remove('is-active', 'status-connecting', 'status-failed');
+    }
+
+    function showButtonNotification(message, status = 'connecting') {
+      if (!btnNotifyBar || !btnNotifyText) return;
+
+      if (notifyBarTimer) clearTimeout(notifyBarTimer);
+
+      btnNotifyBar.className = 'btn-notify-bar is-active';
+      if (status === 'failed') {
+        btnNotifyBar.classList.add('status-failed');
+      } else {
+        btnNotifyBar.classList.add('status-connecting');
+      }
+      btnNotifyText.textContent = message;
+    }
+
+    if (conciergeForm) {
+      const formInputs = conciergeForm.querySelectorAll('.field-input, .field-select, .field-textarea');
+      formInputs.forEach(input => {
+        input.addEventListener('input', resetFormUIFeedback);
+        input.addEventListener('change', resetFormUIFeedback);
+      });
+
+      conciergeForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        resetFormUIFeedback();
+
+        if (conciergeSubmitBtn && conciergeSubmitBtn.disabled) return;
+
+        const nameElem = document.getElementById('clientName');
+        const contactElem = document.getElementById('clientContact');
+        const subjectElem = document.getElementById('inquirySubject');
+        const messageElem = document.getElementById('clientMessage');
+
+        const name = nameElem ? nameElem.value.trim() : '';
+        const contact = contactElem ? contactElem.value.trim() : '';
+        const subjectVal = subjectElem ? subjectElem.value : '';
+        const message = messageElem ? messageElem.value.trim() : '';
+
+        let firstEmptyField = null;
+        let targetTooltip = null;
+
+        if (!name && nameElem) {
+          firstEmptyField = nameElem;
+          targetTooltip = document.getElementById('nameTooltip');
+        } else if (!contact && contactElem) {
+          firstEmptyField = contactElem;
+          targetTooltip = document.getElementById('contactTooltip');
+        } else if (!subjectVal && subjectElem) {
+          firstEmptyField = subjectElem;
+          targetTooltip = document.getElementById('subjectTooltip');
+        } else if (!message && messageElem) {
+          firstEmptyField = messageElem;
+          targetTooltip = document.getElementById('messageTooltip');
+        }
+
+        if (firstEmptyField && targetTooltip) {
+          playWarningChime();
+          firstEmptyField.classList.add('field-invalid');
+          targetTooltip.classList.add('is-visible');
+          firstEmptyField.focus();
+
+          hideButtonNotification();
+
+          if (tooltipTimer) clearTimeout(tooltipTimer);
+          tooltipTimer = setTimeout(() => {
+            targetTooltip.classList.remove('is-visible');
+          }, 3200);
+          return;
+        }
+
+        playWarningChime();
+        if (conciergeSubmitBtn) {
+          conciergeSubmitBtn.disabled = true;
+          conciergeSubmitBtn.textContent = 'CONNECTING DESK...';
+        }
+
+        // 품격 있는 안내 문구
+        showButtonNotification('MaC 컨시어지 데스크로 전송 중입니다...', 'connecting');
+
+        const payload = {
+          type: 'concierge_inquiry',
+          client_name: name,
+          client_contact: contact,
+          subject: subjectVal,
+          message: message
+        };
+
+        const startTime = Date.now();
+        let isSuccess = false;
+
+        try {
+          const response = await fetch('/api/analyze', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          const result = await response.json();
+          if (response.ok && result.status === 'success') {
+            isSuccess = true;
+          }
+        } catch (err) {
+          isSuccess = false;
+        }
+
+        // 고객이 안내 문구를 여유롭게 인지하도록 최소 4000ms 유지
+        const elapsedTime = Date.now() - startTime;
+        const minimumNoticeTime = 4000;
+        if (elapsedTime < minimumNoticeTime) {
+          await new Promise(resolve => setTimeout(resolve, minimumNoticeTime - elapsedTime));
+        }
+
+        playWarningChime();
+
+        if (isSuccess) {
+          showButtonNotification('전송이 완료되었습니다. 곧 연락드리겠습니다.', 'connecting');
+          conciergeForm.reset();
+        } else {
+          showButtonNotification('일시적인 통신 지연이 발생했습니다.\n잠시 후 다시 시도해 주시기 바랍니다.', 'failed');
+        }
+
+        if (conciergeSubmitBtn) {
+          conciergeSubmitBtn.disabled = false;
+          conciergeSubmitBtn.textContent = 'SUBMIT PRIVATE REQUEST';
+        }
+
+        // 정확히 5초 동안 머물렀다가 자동으로 단정하게 소멸
+        notifyBarTimer = setTimeout(() => {
+          hideButtonNotification();
+        }, 5000);
+      });
+    }
+
+    /* -------------------------------------------------------------------------
+       6. 섹션 1 알림 툴팁 제어
        ------------------------------------------------------------------------- */
     const inlineTooltip = document.getElementById('formInlineTooltip');
     const tooltipText = document.getElementById('tooltipText');
@@ -1802,7 +3100,7 @@
     document.getElementById('userEmail').addEventListener('input', hideInlineNotice);
 
     /* -------------------------------------------------------------------------
-       5. 백엔드 API 응답 데이터 -> 지니 모달 렌더링
+       7. 백엔드 API 응답 데이터 -> 지니 모달 렌더링
        ------------------------------------------------------------------------- */
     function renderDynamicSpecimen(result) {
       const specimenHash = result.hash || result.specimen_code || "MaC-Archive";
@@ -1845,15 +3143,13 @@
     }
 
     /* -------------------------------------------------------------------------
-       6. 폼 전송 이벤트 및 /api/analyze 호출
+       8. 섹션 1 폼 전송 이벤트 및 /api/analyze 호출
        ------------------------------------------------------------------------- */
     const form = document.getElementById('colorArchForm');
     const submitBtn = document.getElementById('submitBtn');
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-
-      // 버튼을 누르는 순간 브라우저 오디오 컨텍스트 즉시 활성화
       getAudioContext();
 
       const memoryInputField = document.getElementById('userMemory');
