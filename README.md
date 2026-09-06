@@ -5,10 +5,10 @@
 *당신의 추억을 한 줄로 남겨주세요.  
 당신의 기억을,  
 색으로 돌려드립니다.*  
-<br><br><br>  
+<br><br> 
 
 ---
-### Key:   
+### Key ideas:   
 Cognitive Externalization  
 Synesthetic Visualization  
 Chromatic Cryptography / Color Encoding  
@@ -44,109 +44,78 @@ MaC는 보이지 않는 내면의 감각과 기억을 관찰 가능한 색채로
 - **GitHub Repository**: `https://github.com/OZ-Codessey/MaC.git`
 
 ---
-
-## Environment Variables
-
-보안을 위해 API Key는 소스 코드에 커밋하지 않으며, 배포 플랫폼(Vercel) 및 로컬 `.env` 파일에서 관리합니다.
-
-### `.env.example`
-```env
-# Gemini API Key (색채 분석용)
-GEMINI_API_KEY=AIzaSyYourGeminiApiKeyHere
-
-# Resend API Key (이메일 발송용)
-RESEND_API_KEY=re_YourResendApiKeyHere
-
-```
-
 <br><br>
-# How to Run
+## ⚙️ Environment Setup
 
-터미널(Terminal) 환경에서 아래 명령어를 입력하여 프로그램을 실행합니다.
+터미널(Terminal) 환경에서 아래 명령어를 순서대로 실행하여 로컬 개발 환경을 구축합니다.
 
-
-[in Terminal]  
-```
+```bash
+# 1. 저장소 복제 및 디렉토리 이동
 cd Desktop
-
-git clone https://github.com/OZ-Codessey/MaC.git  
-
+git clone [https://github.com/OZ-Codessey/MaC.git](https://github.com/OZ-Codessey/MaC.git)
 cd MaC
 
-python3 main.py OR python3 MaC.py
-```
-
-가상환경 생성 (macOS/Linux)  
-```
+# 2. 가상환경 생성 및 활성화 (macOS/Linux)
 python3 -m venv venv
-```
-
-가상환경 활성화  
-```
 source venv/bin/activate
+
+# 3. 백엔드 의존성 패키지 설치
+pip3 install -r requirements.txt  
+
 ```
+<br>  
 
+>##  🔐 Environment Variables  
 
-백엔드 의존성 패키지 설치  
-```
-pip install -r requirements.txt
-```
+보안을 위해 모든 API Secret Key는 소스 코드에 커밋하지 않으며, 배포 플랫폼(Vercel) 및 로컬 환경 변수(.env)를 통해 격리 관리합니다.  
+채워 넣을 수 있습니다.
+| 구분 | 항목 / 변수명 | 상세 설명 | 비고 / 발급처 |
+| :--- | :--- | :--- | :--- |
+| **필수 환경 변수** | `GEMINI_API_KEY` | 기억 서사 분석 및 4색 팔레트 추출을 위한 AI Key | [Google AI Studio](https://aistudio.google.com/) |
+| **필수 환경 변수** | `RESEND_API_KEY` | 분석 결과표 및 컨시어지 의뢰 메일 발송용 Key | [Resend](https://resend.com/) |
+| **로컬 환경 설정** | `.env` 생성 | 프로젝트 루트 디렉토리에 생성 후 발급받은 키 입력 (`.env.example` 활용) | `.gitignore`에 등록되어 GitHub에 노출되지 않음 |
+| 📌 **Tip** | `cp .env.example .env` | 로컬 환경 구성 시 터미널에서 템플릿을 복사하여 즉시 환경 변수를 설정할 수 있습니다. | CLI 명령어 |  
 
-<br> 
+<br> <br>
 
+# 🌐 How to Run  
 
-
-### 🔐 환경 변수(Environment Variables) 설정 가이드
-
-본 프로젝트는 AI 색채 추론 및 트랜잭션 이메일 발송 기능을 위해 외부 API를 사용하며, 보안을 위해 API Key는 환경 변수로 관리됩니다.  
-```
-👮🏼‍♂️ Security & Notes  
-본 서비스의 색채 표본 체계는 독자적인 MaC SPECIMEN 을 사용하며, PANTONE®을 포함한 타사 상표를 침해하지 않습니다.
-모든 API Secret 는 .gitignore에 정의된 가상환경 및 환경 변수를 통해 철저히 격리됩니다.
-```
-
-### 1. 필수 환경 변수 목록
-
-| 환경 변수 명 | 설명 | 발급처 |
-| :--- | :--- | :--- |
-| `GEMINI_API_KEY` | 기억 서사 분석 및 4색 팔레트 추출을 위한 Google Gemini API Key | [Google AI Studio](https://aistudio.google.com/) |
-| `RESEND_API_KEY` | 분석 결과표 및 컨시어지 프라이빗 의뢰 메일 발송용 API Key | [Resend](https://resend.com/) |
-
----
-
-### 2. 로컬 개발 환경 설정 (`.env`)
-
-프로젝트 루트 경로에 `.env` 파일을 생성하고 아래와 같이 키를 설정합니다.  
-*(※ `.env` 파일은 보안을 위해 `.gitignore`에 등록되어 GitHub 저장소에 업로드되지 않습니다.)*
-
-```env
-# Google Gemini API Key
-GEMINI_API_KEY="your_actual_gemini_api_key_here"
-
-# Resend API Key
-RESEND_API_KEY="your_actual_resend_api_key_here"
+###  **Option A. Vercel CLI 로컬 구동 (권장)**
+프론트엔드와 Python 서버리스 함수(api/analyze.py)를 프로덕션 환경과 동일하게 로컬에서 통합 실행합니다.  
 ```  
-
-### 3. 로컬 서버 실행
-Vercel CLI를 사용하여 프론트엔드와 백엔드 서버리스 함수(api/analyze.py)를 동시에 로컬에서 구동합니다.
-```  
-# Vercel CLI 전역 설치 (최초 1회)
+# Vercel CLI 설치 (최초 1회)
 npm install -g vercel
 
-# 로컬 개발 서버 실행
-vercel dev  
+# 로컬 통합 개발 서버 구동
+vercel dev
+```  
+
+### **Option B. 단독 백엔드 스크립트 실행** 
+서버리스 함수와 별개로 로컬 파이썬 메인 로직만 단독으로 테스트할 경우 실행합니다.  
 ```
-### 4. Vercel 클라우드 배포 환경 설정
-Vercel 프로덕션 환경에서 서버리스 함수(api/analyze.py)가 정상 동작할 수 있도록 대시보드에 환경 변수를 등록합니다.  
-1. Vercel Dashboard 접속 후 해당 프로젝트(MaC) 선택  
-2. 상단 메뉴의 [Settings] → 좌측 [Environment Variables] 탭 이동  
-3. Key와 Value에 각각의 환경 변수 입력 후 [Save]:  
->- GEMINI_API_KEY: 발급받은 Gemini API 키 입력  
->- RESEND_API_KEY: 발급받은 Resend API 키 입력  
-4. 변경 사항 적용을 위해 프로젝트 재배포(Redeploy) 진행
+python3 main.py
+```  
+<br>  
 
+## ☁️ Production Deployment (Vercel) 
 
+Vercel 클라우드 환경에서 서버리스 함수가 안전하게 동작하도록 대시보드 설정을 완료합니다.  
+1. Vercel Dashboard 접속 후 MaC 프로젝트 선택  
+2. Settings → Environment Variables 탭 이동  
+3. Type: Secret 상태로 환경 변수 등록 후 Save:  
+>- GEMINI_API_KEY
+>- RESEND_API_KEY  
+4. Deployments 탭에서 최신 배포 항목의 Redeploy를 실행하여 키를 반영합니다.  
+<br>
+
+### 👮🏼‍♂️ Compliance & Security Notice 
+```
+1. 독자적 표본 체계: 본 서비스의 색채 표본 체계는 독자적인 MaC SPECIMEN을 기반으로 작동하며, PANTONE®을 포함한 타사 상표권을 침해하지 않습니다.  
+
+2. 보안 격리: 모든 API Key와 인증 토큰은 환경 변수로 암호화 관리되며 클라이언트 번들에 노출되지 않습니다.  
+```
 <br><br>
+
 ## 🔍 Commit Log  
 
 
@@ -239,7 +208,6 @@ MaC/
 🔮 중요
 MaC 은 의료·치료용 서비스가 아니며, 추상적인 언어 기억을 정량적 디지털 데이터(HEX)로 변환해 소장성과 창작 영감을 제공하는 색채 아카이빙 서비스 입니다. 그러나 제작자의 의도와는 무관하게 드물게는 개인에 따라 치료나 치유 효과를 줄 수는 있습니다.
 ```
-
 
 
 
